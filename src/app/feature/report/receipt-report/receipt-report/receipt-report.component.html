@@ -1,0 +1,221 @@
+
+<form [formGroup]="form">
+    <div class="body" >
+        <table width="100%;" style="font-size: 14px;" border="0" cellpadding="0" cellspacing="0" >
+            <!-- <tr>
+                <td align="center" class="headTitle"></td>
+            </tr> -->
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left"  ></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" style="width: 40%;"></td>
+                            <td align="left"  style="width:10px;"></td>
+                            <td style="width: 40%;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr [formGroupName]="'applicantapply'">
+                                        <td align="right" >
+                                            <div >{{form.get('applicantapply.payin_no').value}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" style="width: 40%;"></td>
+                            <td style="width:10%;">
+                            </td>
+                            <td align="left"  style="width:40px;"></td>
+                            <td style="width: 40%;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="right" >
+                                            <div >{{date | date : 'dd MMM yyyy'}}&nbsp;{{date | date : 'h:mm:ss'}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" >ใบเสร็จรับเงิน</td>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="newLine2"></tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td [formGroupName]="'applicants'" align="left" style="width: 40%;">ได้รับเงินจาก {{form.get('applicants.prefix_code').value | getFormId : prefixs :'prefix_code' : 'prefix_name_th' : ''}}{{form.get('applicants.first_name_th').value}}  {{form.get('applicants.last_name_th').value}}</td>
+                            <td style="width:20%">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="left" [formGroupName]="'applicantapply'">
+                                            <div  >รหัส : {{form.get('applicantapply.application_id').value}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="left" style="width: 40%;">สำนักงานการเงิน </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" >
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr *ngFor="let fees of fees">
+                            <td align="left" style="width: 40%;" >{{fees.fee_type_name_th}} </td>
+                            <td align="left" style="width: 10%;" ></td>
+                            <td align="right" style="width: 40%;" >{{fees.amount | number : '1.2-2'}}</td>
+                            
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="newLine2" ></tr>
+            <tr class="newLine2" ></tr>
+        
+    <br>
+    <br>
+    <br>
+    <br>
+    <tr class="newLine2" >
+        <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr *ngFor="let fees of fees">
+                    <td align="left" style="width: 5%;" ></td>
+                    <td align="left" style="width: 40%;" >({{ThaiBaht(fees.amount | number : '1.2-2')}})</td>
+                    <td align="left" style="width: 10%;" ></td>
+                    <td align="right" style="width: 40%;" >{{fees.amount | number : '1.2-2'}}</td>
+                    
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="newLine2" >
+        <!-- <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left" style="width: 5%;" ></td>
+                    <td align="left">[Cash ค่าสมัคร = 300.00     ค่าธรรมเนียม = 6.00]</td>
+                    
+                </tr>
+            </table>
+        </td> -->
+    </tr>
+    <tr class="newLine2" >
+        <!-- <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left" style="width: 5%;" ></td>
+                    <td align="left">[Credit Card ค่าสมัคร = 300.00     ค่าธรรมเนียม = 6.00]</td>
+                    
+                </tr>
+            </table>
+        </td> -->
+    </tr>
+    <tr class="newLine2" >
+        <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr >
+                    <td align="left" style="width: 5%;" ></td>
+                    <td align="left" *ngFor="let fees of fees">[ {{fees.fee_type_name_th}} = {{fees.amount | number : '1.2-2'}}  &nbsp;&nbsp;  ]</td>
+                    
+                </tr>
+            </table>
+        </td>
+    </tr>
+            <tr class="newLine1">
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <!-- <td align="left" style="width: 150px;">เลขที่ใบเสร็จรับเงิน :</td> -->
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="left" >
+                                            <div >ศธวรรณ มาลัย </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                             <td align="left" style="width: 70px;"></td>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="left" >
+                                            <div >ผู้บันทึก </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+    
+    
+    <tr class="newLine1">
+        <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <!-- <td align="left"  style="width: 40px;">ลงชื่อ</td> -->
+                    <td style="width: 335px;">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left" >
+                                    <div >ต้องแสดงใบเสร็จรับเงินฉบับนี้ในการติดต่อกับมหาลัยวิทยาลัยทุกครั้ง</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!-- <td align="left"  style="width: 110px;">ผู้รับใบสั่งซื้อ</td> -->
+                    <!-- <td align="left"  style="width: 40px;">ลงชื่อ</td> -->
+                    <!-- <td>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left" >
+                                    <div class="underLine">&nbsp;</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td> -->
+                    <!-- <td align="left"  style="width: 150px;">ลายเซ็น</td> -->
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
+        </table>
+    </div>
+    </form>
+    <!-- <pre>{{form.getRawValue()| json}}</pre>  -->

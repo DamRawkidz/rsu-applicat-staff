@@ -1,0 +1,19 @@
+<!-- <div class="modal-header">
+    <h4>เอกสาร</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" class="times">×</span>
+    </button>
+</div> -->
+
+<!-- <h2 mat-dialog-title>เอกสาร</h2> -->
+<div class="flex_row_end">
+    <button  mat-raised-button (click)="close()" > ปิด </button>
+    </div>
+<!-- <mat-dialog-content class="mat-typography"> -->
+    <iframe [src]="urlDoc | safeUrl" frameborder="0" style="width: 100%;height: 100%;"></iframe>
+<!-- </mat-dialog-content> -->
+<!-- <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  </mat-dialog-actions> -->
+

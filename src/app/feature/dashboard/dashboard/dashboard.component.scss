@@ -1,0 +1,29 @@
+.main {
+    width:150px;
+    height: 150px;
+    border:1px solid black;
+    display: flex;   
+    flex-flow:column nowrap;
+  }
+
+  .font_weigth {
+    font-weight: bold;
+  }
+
+  .dashbroad_card {
+    height: 100px;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: rgba(245, 247, 249, 1);
+
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.0rem;
+    }
+
+    div font {
+      font-size: 3rem;
+    }
+  }

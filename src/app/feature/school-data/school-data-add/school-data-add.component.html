@@ -1,0 +1,154 @@
+<form [formGroup]="form">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>ประเภทสถาบัน</mat-label>
+                    <mat-select formControlName="school_type">
+                        <mat-option
+                            *ngFor="let data of [{id:'G',name:'รัฐบาล'},{id:'P',name:'เอกชน'},{id:'O',name:'อื่น ๆ'}]"
+                            [value]="data.id">
+                            {{data.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>ระดับสถาบัน</mat-label>
+                    <mat-select formControlName="school_flag">
+                        <mat-option
+                            *ngFor="let data of [{id:'S',name:'โรงเรียน'},{id:'U',name:'มหาวิทยาลัย'},{id:'C',name:'วิทยาลัย'}]"
+                            [value]="data.id">
+                            {{data.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>รหัสโรงเรียน</mat-label>
+                    <input matInput formControlName="school_code" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>ชื่อโรงเรียน</mat-label>
+                    <input matInput formControlName="school_name_th" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ชื่อโรงเรียน (ภาษาอังกฤษ)</mat-label>
+                    <input matInput formControlName="school_name_en" appTypeEngCharacter />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ประเทศ</mat-label>
+                    <mat-select formControlName="country_id">
+                        <mat-option *ngFor="let country of countryData" [value]="country.country_id">
+                            {{country.country_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>ที่อยู่ (ไทย)</mat-label>
+                    <textarea matInput formControlName="address1_th" ></textarea>
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>ที่อยู่ (ภาษาอังกฤษ)</mat-label>
+                    <textarea matInput formControlName="address1_en" ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>จังหวัด</mat-label>
+                    <mat-select formControlName="province_id">
+                        <mat-option (onSelectionChange)="changeProvince(pro)" *ngFor="let pro of province"
+                            [value]="pro.province_id">
+                            {{pro.province_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>เขต/อำเภอ</mat-label>
+                    <mat-select formControlName="district_id">
+                        <mat-option (onSelectionChange)="changeDistricts(dis)" *ngFor="let dis of districtsData"
+                            [value]="dis.district_id">
+                            {{dis.district_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>แขวง/ตำบล</mat-label>
+                    <mat-select formControlName="sub_district_id">
+                        <mat-option *ngFor="let sub of subDistrictsData" [value]="sub.sub_district_id">
+                            {{sub.sub_district_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>รหัสไปรษณีย์</mat-label>
+                    <input matInput formControlName="postal_code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>หมายเลขโทรศัพท์</mat-label>
+                    <input matInput formControlName="phone_no" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ชื่อผู้ติดต่อ</mat-label>
+                    <input matInput formControlName="contact" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>หมายเลขโทรสาร</mat-label>
+                    <input matInput formControlName="fax_no" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>URL</mat-label>
+                    <input matInput formControlName="url" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>E-MAIL</mat-label>
+                    <input matInput formControlName="email" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row">
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>สถานะ</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let data of [{id:'Y',name:'เปิดใช้งาน'},{id:'N',name:'ปิดใช้งาน'}]"
+                            [value]="data.id">
+                            {{data.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <br>
+        <div class="flex_row_end">
+            <button style="width: 190px;" color="accent" (click)="save()" mat-raised-button>บันทึก</button>&nbsp;&nbsp;
+            <button mat-raised-button style="width: 190px;" (click)="close()" mat-raised-button>ยกเลิก</button>
+
+        </div>
+    </mat-card>
+</form>
+<!-- <pre>{{form.getRawValue()| json}}</pre>  -->

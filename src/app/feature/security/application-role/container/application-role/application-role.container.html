@@ -1,0 +1,3 @@
+<app-application-role-search (onSearch)="onSearch($event)" ></app-application-role-search>
+<br>
+<app-application-role-list [rows]="roles$ | async" (onDelete)="remove($event)"> </app-application-role-list>

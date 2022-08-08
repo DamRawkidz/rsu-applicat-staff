@@ -1,0 +1,46 @@
+
+.p-4 {
+    padding: 1.5rem!important;
+}
+.border-bottom {
+    border-bottom: 1px solid #dee2e6!important;
+}
+.pb-2, .py-2 {
+    padding-bottom: 0.5rem!important;
+}
+
+.card-info.card-outline {
+    border-top: 3px solid #17a2b8;
+}
+.div-box {
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    border-radius: 0.25rem;
+    background-color: #fff;
+    display: -ms-flexbox;
+    margin-bottom: 1rem;
+    min-height: 80px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.text-success {
+    color: #28a745!important;
+}
+
+.mt-3, .my-3 {
+    margin-top: 1rem!important;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+}
+
+.mb-0, .my-0 {
+    margin-bottom: 0!important;
+}

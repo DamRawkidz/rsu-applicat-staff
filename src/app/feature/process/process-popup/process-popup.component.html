@@ -1,0 +1,95 @@
+<h1 mat-dialog-title rtl> เพิ่มรายชื่อ</h1>
+<div mat-dialog-content rtl>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 40%">
+                    <mat-label>หมายเลขบัตรประชาชน</mat-label>
+                    <input  matInput />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 40%">
+                    <mat-label>เลขที่นั่งสอบ</mat-label>
+                    <input  matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="flex_row_between">
+                <div style="width: 40%;">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 40%">
+                        <mat-label>ชื่อ</mat-label>
+                        <input  matInput />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 40%">
+                        <mat-label>นามสกุล</mat-label>
+                        <input  matInput />
+                    </mat-form-field>
+                </div>
+                <div class="paddingInput">
+                <button style="width: 190px;"  mat-stroked-button color="accent"> ค้นหา</button>
+            </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-header>
+            <mat-card-title>แสดงผลรายละเอียดผู้สมัครจำนวน {{rows?.filteredData?.length}} คน</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <ng-container >
+                <table class="mat-elevation-z2" style="width: 100%;">
+                <tr style="height: 56px;">
+                    <th style="width: 5%;" class="th_head_befor">
+                        
+                    </th>
+                    <th style="width: 10%;text-align: left;" class="th_head">เลขที่นั่งสอบ</th>
+                    <th style="width: 30%;text-align: left;" class="th_head">ชื่อ-นามสกุล</th>
+                    <th style="width: 10%;text-align: left;" class="th_head" *ngFor="let sub of rows[0].program_schedule_interview_subjects">{{sub.exam_subject_name_th}}</th>
+                    <th style="width: 10%;text-align: left;" class="th_head_after">คะแนนรวม</th>
+                    <!-- <th style="width: 10%;text-align: left;" class="th_head_after">Active</th> -->
+                    <!-- <th style="width: 10%;text-align: left;" class="th_head_after">ตรวจสอบใบสมัคร</th> -->
+                </tr>
+                <ng-container >
+                    <ng-container *ngFor="let SDIntervies of rows;let i = index">
+                        <tr>
+                            <td colspan="9" valign="top" style="padding: 0px;">
+                                <!-- <div class="containBody"> -->
+                                    <table class="mat-elevation-z2" style="width: 100%;">
+                                        <tr style="height: 48px;">
+                                            <td style="width: 5%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;" class="td_body_befor">
+                                                <section class="example-section">
+                                                    <mat-checkbox #check (change)="changAppil(check.checked,SDIntervies)" class="example-margin"></mat-checkbox>
+                                                  </section>
+                                                  
+                                            </td>
+                                            <td style="width: 10%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;" class="td_body">
+                                                {{SDIntervies.seat_no_text}}
+                                            </td>
+                                            <td style="width: 30%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;" class="td_body">
+                                                {{SDIntervies.first_name_th}} {{SDIntervies.last_name_th}} 
+                                            </td>
+                                            <td style="width: 10%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;" class="td_body" *ngFor="let sub of SDIntervies.program_schedule_interview_subjects">
+                                               {{sub.score}}
+                                            </td>
+                                            <td style="width: 10%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;" class="th_body_after" >
+                                                {{0 | totalScore : SDIntervies.program_schedule_interview_subjects}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                <!-- </div> -->
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </table>
+        </ng-container>
+            <br/>
+            <div class="flex_row_center">
+                <div class="paddingInput">
+                <button style="width: 190px;"  mat-stroked-button color="accent" (click)="add()"> เพิ่มรายชื่อ</button>
+            </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,51 @@
+<div style="height: 80vh;">
+    <div class="flex_row">
+        <mat-form-field class="paddingInput" appearance="outline" style="width: 20%;">
+            <mat-label> ข้อมูลที่จะค้นหา </mat-label>
+            <input #aa (input)="recall($event.target.value);search(aa.value)"  matInput />
+        </mat-form-field>
+        <!-- <div class="flex_row" style="width: 70%;"> -->
+            <div class="paddingInput">
+                <!-- <button style="width: 150px;" (click)="search(aa.value)" mat-stroked-button color="accent"> ค้นหา</button>&nbsp;&nbsp; -->
+                <button style="width: 150px;" (click)="clear();aa.value=''" mat-stroked-button color="accent"> ยกเลิก</button>
+            </div>
+        <!-- </div> -->
+    </div>
+    <table class="mat-elevation-z2" style="width: 100%;">
+        <tr style="height: 56px;">
+            <th style="width: 5%;" class="th_head_befor">
+                <mat-checkbox #courseAll (change)="addCourseAll(courseAll.checked)"></mat-checkbox>
+            </th>
+            <th style="width: 15%;text-align: left;" class="th_head">รหัสสาขา</th>
+            <th style="width: 75%;text-align: left;" class="th_head_after">ชื่อหลักสูตร</th>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top" style="padding: 0px;">
+                <div class="containBody">
+                    <table class="mat-elevation-z2" style="width: 100%;">
+                        <tr style="height: 48px;" *ngFor="let item of courseData | searchCourse : searchInput">
+                            <td class="td_body_befor">
+                                <mat-checkbox #course [checked]="item.isCheck | checkedCourseAdd : item : formCourseAdd"
+                                    (change)="addCourse(course.checked,item)"></mat-checkbox>
+                            </td>
+                            <td class="td_body">
+                                {{item.faculty_curriculum_code}}
+                            </td>
+                            <td class="td_body_after">
+                                {{item.faculty_curriculum_name_th}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <div class="flex_row_end" >
+        <button style="width: 190px;" (click)="save()" color="accent" mat-raised-button>ตกลง</button>&nbsp;&nbsp;
+        <button mat-raised-button style="width: 190px;" (click)="close()" mat-raised-button>ยกเลิก</button>
+        <!-- <button mat-raised-button style="width: 190px;" (click)="openPopUpWriting()" mat-raised-button>aaa</button> -->
+    </div>
+    <!-- <br> -->
+</div>

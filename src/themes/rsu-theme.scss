@@ -1,0 +1,111 @@
+@use '~@angular/material' as mat;
+// --primary_color: #aeb7b2;
+// // --sec_color:#db2a6f;
+// --sec_color:#70a0b2;
+@include mat.core();
+$rsu-dorm-blue-map: (
+    50 : #e8f3fb,
+    100 : #c6e1f5,
+    200 : #a1cdef,
+    300 : #7bb9e9,
+    400 : #5eaae4,
+    500 : #429bdf,
+    600 : #3c93db,
+    700 : #3389d7,
+    800 : #2b7fd2,
+    900 : #1d6dca,
+    A100 : #ffffff,
+    A200 : #cee3ff,
+    A400 : #9bc6ff,
+    A700 : #81b8ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+$rsu-dorm-dark-map: (
+    50 : #e4e4e5,
+    100 : #bcbcbf,
+    200 : #8f9094,
+    300 : #626469,
+    400 : #414248,
+    500 : #1f2128,
+    600 : #1b1d24,
+    700 : #17181e,
+    800 : #121418,
+    900 : #0a0b0f,
+    A100 : #548dff,
+    A200 : #216bff,
+    A400 : #004fed,
+    A700 : #0047d4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$rsu-dorm-red-map: (
+    50 : #f8e1e1,
+    100 : #edb5b5,
+    200 : #e18484,
+    300 : #d45252,
+    400 : #cb2d2d,
+    500 : #c20808,
+    600 : #bc0707,
+    700 : #b40606,
+    800 : #ac0404,
+    900 : #9f0202,
+    A100 : #ffc9c9,
+    A200 : #ff9696,
+    A400 : #ff6363,
+    A700 : #ff4a4a,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+// $custom-theme-primary: mat.define-palette(mat.$grey-palette, 400);
+$custom-theme-primary: mat.define-palette($rsu-dorm-blue-map, 500);
+$custom-theme-accent:mat.define-palette(mat.$pink-palette, 400);
+$custom-theme-warn: mat.define-palette(mat.$red-palette);
+$custom-theme: mat.define-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+@include mat.all-component-themes($custom-theme);

@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>รหัสภาคเรียน</mat-label>
+                    <input matInput formControlName="academic_semester_code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ชื่อภาคเรียน</mat-label>
+                    <input matInput formControlName="semester_name_th" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ชื่อภาคเรียน (ภาษาอังกฤษ)</mat-label>
+                    <input matInput formControlName="semester_name_th" appTypeEngCharacter />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>ปีการศึกษา</mat-label>
+                    <mat-select formControlName="academic_year_uid">
+                        <mat-option *ngFor="let year of academicYear"
+                            [value]="year.academic_year_uid">
+                            {{year.academic_year_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <br>
+        <div class="flex_row_end">
+            <button style="width: 190px;" color="accent" (click)="save()" mat-raised-button>บันทึก</button>&nbsp;&nbsp;
+            <button mat-raised-button style="width: 190px;"  (click)="close()" mat-raised-button>ยกเลิก</button>
+    
+        </div>
+    </mat-card>
+    </form>

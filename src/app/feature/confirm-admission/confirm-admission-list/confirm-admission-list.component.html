@@ -1,0 +1,162 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <mat-card-title>ยืนยันการเข้าศึกษา</mat-card-title>
+        <div class="flex_row">
+            <mat-form-field style="width: 100%;" appearance="outline" class="paddingInput">
+                <input matInput #programInput [(ngModel)]="searchInput.display" placeholder="ค้นหาโครงการ"
+                    aria-label="ค้นหาโครงการ" [matAutocomplete]="pro" />
+                <mat-label>ค้นหาโครงการ</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #pro="matAutocomplete">
+                    <mat-option (click)="changeProgram(ad)"
+                        *ngFor="let ad of programsData | searchInputAuto : searchInput.display : 'display' " [value]="ad.display">
+                        {{ad.display}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <mat-form-field style="width: 100%" appearance="outline" >
+                <input matInput #courseInput [(ngModel)]="searchInput.displayCourse" placeholder="ค้นหาหลักสูตร"
+                    aria-label="ค้นหาหลักสูตร" [matAutocomplete]="sub1" />
+                <mat-label>ค้นหาหลักสูตร</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #sub1="matAutocomplete">
+                    <mat-option *ngFor="let ad of courseData" [value]="ad.display"
+                        (click)="selectCourse(ad)">
+                        {{ad.display}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <mat-form-field style="width: 100%" appearance="outline" >
+                <input matInput #courseInput [(ngModel)]="searchInput.schedule" placeholder="ค้นหารอบการสมัคร"
+                    aria-label="ค้นหารอบการสมัคร" [matAutocomplete]="sub2" />
+                <mat-label>ค้นหารอบการสมัคร</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #sub2="matAutocomplete">
+                    <mat-option *ngFor="let ad of courseSchedules" [value]="ad.program_schedule_code"
+                        (click)="selectSchedules(ad)">
+                        {{ad.program_schedule_code}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row_end">
+            <div class="paddingInput">
+                <button style="width: 190px;" mat-stroked-button color="accent"
+                    [disabled]="program_id == '' || program_schedule_code == ''" (click)="search()"> ค้นหา</button>
+            </div>
+            <div class="paddingInput">
+                <button style="width: 190px;" mat-stroked-button color="accent" (click)="clear()"> ยกเลิก</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+<br>
+<ng-container >
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_between">
+                <mat-label>หลักสูตร : <p style="font-weight: bold;"> {{rowsShow.course_name_th}}</p>
+                </mat-label>
+                <div class="paddingInput">
+                    <button style="width: 190px;" mat-stroked-button color="accent" (click)="selectFile()"> อัพโหลดผลสอบ</button>
+                    <input type="file" style="display: none" #file (change)="uplodaFile($event.target.files)">
+                </div>
+            </div>
+            <br />
+            <div class="flex_row_between">
+                <mat-label>คณะ/วิทยาลัย : <p style="font-weight: bold;">{{rowsShow.faculty_name_th}}</p>
+                </mat-label>
+                <mat-label>สาขา : <p style="font-weight: bold;">{{rowsShow.major_name_th}}</p>
+                </mat-label>
+            </div>
+            <br />
+
+
+            <ng-container>
+                <table class="mat-elevation-z2" style="width: 100%;">
+                    <tr style="height: 56px;">
+                        <th style="width: 5%;" class="th_head_befor">
+                            ลำดับ
+                        </th>
+                        <th style="width: 10%;text-align: left;" class="th_head">เลขที่นั่งสอบ</th>
+                        <th style="width: 30%;text-align: left;" class="th_head">ชื่อ-นามสกุล</th>
+                        <th style="width: 10%;text-align: left;" class="th_head">คะแนนรวม</th>
+                        <th style="width: 30%;text-align: center;" class="th_head">สถานะ</th>
+                        <th style="width: 5%;text-align: left;" class="th_head_after"></th>
+                        <!-- <th style="width: 10%;text-align: left;" class="th_head_after">Active</th> -->
+                        <!-- <th style="width: 10%;text-align: left;" class="th_head_after">ตรวจสอบใบสมัคร</th> -->
+                    </tr>
+                    <ng-container>
+                        <ng-container *ngFor="let SDIntervies of rowsShow.program_schedule_interviews;let i = index">
+                            <tr>
+                                <td colspan="9" valign="top" style="padding: 0px;">
+                                    <!-- <div class="containBody"> -->
+                                    <table class="mat-elevation-z2" style="width: 100%;">
+                                        <tr style="height: 48px;">
+                                            <td style="width: 5%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="td_body_befor">
+                                                {{i+1}}
+                                            </td>
+                                            <td style="width: 10%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="td_body">
+                                                {{SDIntervies.seat_no_text}}
+                                            </td>
+                                            <td style="width: 30%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="td_body">
+                                                {{SDIntervies.first_name_th}} {{SDIntervies.last_name_th}}
+                                            </td>
+                                            <td style="width: 10%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="td_body">
+                                                {{SDIntervies.score}}
+                                            </td>
+                                            <td style="width: 30%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="td_body">
+                                                <mat-radio-group aria-label="Select an option"
+                                                    (change)="changeStatus($event.value,SDIntervies,i)">
+                                                    <mat-radio-button style="padding-right: 100px;"
+                                                        [checked]="data.interview_status_id == SDIntervies.interview_status_id"
+                                                        *ngFor="let data of interviewStatusData"
+                                                        [value]="data.interview_status_id">
+                                                        {{data.interview_status_name_th}}</mat-radio-button>
+                                                </mat-radio-group>
+                                            </td>
+                                            <td style="width: 5%;border-bottom-width: 0px;border-bottom-style: none;border-bottom-color:unset;"
+                                                class="th_body_after">
+
+                                            </td>
+                                            <!-- <td style="width: 10%;" class="td_body_after">
+                                            <button mat-icon-button color="accent" 
+                                                aria-label="Example icon button with a home icon">
+                                                <mat-icon matSuffix>
+                                                    <span class="material-icons">
+                                                        create
+                                                    </span>
+                                                </mat-icon>
+                                            </button>
+                                        </td> -->
+                                        </tr>
+                                    </table>
+                                    <!-- </div> -->
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </table>
+            </ng-container>
+
+            <br />
+            <div class="flex_row_end">
+                <div class="paddingInput">
+                    <button style="width: 190px;" mat-raised-button color="accent" (click)="save(rowsShow)">
+                        บันทึก</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br />
+    <!-- <pre>{{rowsShow | json}}</pre> -->
+</ng-container>

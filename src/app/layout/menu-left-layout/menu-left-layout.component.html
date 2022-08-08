@@ -1,0 +1,56 @@
+<!-- <div style="display: flex;flex-flow: column;" >
+<div style="display: flex;flex-flow: row;height: 70%;" class="container_router"> -->
+    <!-- <div style="width: 20%;height: 100%;">
+        
+            <div style="display: flex;flex-flow: row;">
+                <div style="padding: 10px;display: flex;flex-flow: column;">
+                    <button mat-button>XXX</button>
+                    <button mat-button>XXX</button>
+                    <button mat-button>XXX</button>
+                </div>
+                <div style="padding: 10px;display: flex;flex-flow: column;width: 100%;">
+                  
+                    <mat-form-field style="width: 70%;">
+                        <input matInput placeholder="Search"/>
+                        <mat-icon matSuffix>
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </mat-icon>
+                    </mat-form-field>
+                    
+                </div>
+            </div>
+        
+    </div> -->
+
+
+   
+
+
+
+
+    <!-- <div style="width: 100%;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<div class="container_footer" style="display: flex;flex-flow: row;">
+
+    <footer-layout></footer-layout>
+</div>
+</div> -->
+
+
+<div style="display: flex;min-height: 100vh;">
+    <div>   
+        <div class="container_menu" [ngClass]="isExpandMenu ? '' : 'expandMenu'">
+            <app-main-layout (onToggleMenu)="isExpandMenu = $event"></app-main-layout>
+        </div>        
+    </div>    
+    <div style="width: 100%;">
+        <app-toolbar-layout></app-toolbar-layout>
+        <div class="container_content">
+            <router-outlet></router-outlet>
+        </div>        
+    </div>
+</div>

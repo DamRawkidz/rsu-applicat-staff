@@ -1,0 +1,448 @@
+* {
+    page-break-after: always;
+    page-break-after: avoid;
+  }
+  
+  .container_layout {
+    padding: 0 150px;
+  }
+  
+  html,
+  body,
+  div,
+  span,
+  td,
+  th,
+  li,
+  a,
+  button,
+  input {
+    font-family: "rsuregular", Verdana, Tahoma;
+    font-size: 10px;
+  }
+  
+  @media only screen {
+    body {
+      display: block;
+      position: relative;
+      width: 1024px;
+      margin: 20px auto;
+    }
+  
+    div.btn-layout {
+      display: block;
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  
+    div.btn-layout button {
+      display: inline-block;
+      color: #fff;
+      background-color: #3f51b5;
+      border: #111c5a 1px solid;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 5px 15px;
+    }
+  }
+  
+  div.rsu-header-rpt {
+    position: relative;
+    display: block;
+  }
+  
+  div.rsu-header-rpt div.left-addr {
+    display: block;
+    float: left;
+    width: 33%;
+  }
+  
+  div.rsu-header-rpt div.logo-layout {
+    display: block;
+    float: left;
+    width: 33%;
+    text-align: center;
+  }
+  
+  div.rsu-header-rpt div.inv-layout {
+    display: block;
+    float: right;
+    width: 33%;
+    text-align: right;
+  }
+  
+  div.rsu-info {
+    position: relative;
+    display: flex;
+    // flex: 1;
+    // justify-content: space-between;
+    // margin-top: 10px;
+  }
+  
+  div.rsu-info div.payee-name {
+    float: left;
+    width: 30%;
+    text-align: left;
+  }
+  
+  div.rsu-info div.payee-code {
+    float: left;
+    width: 120px;
+  }
+  
+  div.rsu-info div.payee-major {
+    float: left;
+    text-align: left;
+  }
+  
+  div.major-layout {
+    display: block;
+    position: relative;
+    padding: 5px;
+    border: #000 1px solid;
+  }
+  
+  div.major-layout div.due-date {
+    text-align: center;
+    font-size: 0.9em;
+  }
+  
+  div.major-layout div.amt-layout {
+    position: relative;
+    display: block;
+  }
+  
+  div.major-layout div.amt-layout div.word-amt {
+    position: absolute;
+    display: block;
+    width: calc(100% - 155px);
+    border: #000 1px solid;
+    text-align: center;
+    // line-height: 35px;
+    font-weight: bold;
+  }
+  
+  div.major-layout div.amt-layout div.num-amt {
+    display: block;
+    float: right;
+    width: 140px;
+    text-align: right;
+    padding-right: 5px;
+    border: #000 1px solid;
+    // line-height: 35px;
+    font-weight: bold;
+  }
+  
+  div.remark-layout {
+    position: relative;
+    display: block;
+    // margin: 10px 0px;
+    padding-bottom: 15px;
+    border-bottom: #909090 1px dashed;
+  }
+  
+  div.remark-layout div.hint-layout {
+    display: block;
+    float: left;
+    width: calc(100% - 360px);
+  }
+  
+  div.remark-layout div.hint-layout div.text {
+    font-size: 0.7em;
+    // line-height: 22px;
+  }
+  
+  div.remark-layout div.hint-layout div.text-bold {
+    font-size: 0.7em;
+    font-weight: bold;
+    // line-height: 22px;
+  }
+  
+  div.remark-layout div.officer-sign-layout {
+    display: block;
+    float: left;
+    width: 160px;
+    margin-right: 20px;
+  }
+  
+  div.remark-layout div.officer-sign-layout div.topic {
+    display: block;
+    font-size: 0.8em;
+    text-align: center;
+  }
+  
+  div.remark-layout div.officer-sign-layout div.dash {
+    display: block;
+    height: 15px;
+    border-bottom: #000 1px dashed;
+  }
+  
+  div.remark-layout div.officer-sign-layout div.payee-desc {
+    display: block;
+    font-size: 0.8em;
+    text-align: center;
+    padding-top: 5px;
+  }
+  
+  div.remark-layout div.customer-sign-layout {
+    display: block;
+    float: right;
+    width: 180px;
+  }
+  
+  div.remark-layout div.customer-sign-layout div.sign-block {
+    position: relative;
+    display: block;
+    height: 25px;
+    border-bottom: #000 1px dashed;
+  }
+  
+  div.remark-layout div.customer-sign-layout div.sign-block div.topic {
+    position: absolute;
+    display: inline-block;
+    left: 0px;
+    top: 5px;
+    // background-color: #fff;
+    padding-right: 5px;
+    height: 25px;
+    font-size: 0.8em;
+  }
+  
+  div.payin-ref-layout {
+    position: relative;
+    display: block;
+  }
+  
+  div.payin-ref-layout div.bank-hint {
+    display: block;
+    float: left;
+    width: 70%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    border: #000 1px solid;
+    padding: 3px;
+    height: 210px;
+  }
+  
+  div.payin-ref-layout div.ref-layout {
+    display: block;
+    float: right;
+    width: calc(30% - 5px);
+    border: #000 1px solid;
+    padding: 3px;
+    height: 210px;
+    box-sizing: border-box;
+  }
+  
+  div.payin-ref-layout div.ref-layout div.topic {
+    display: block;
+    font-size: 0.9em;
+    border: #000 1px solid;
+    padding: 5px;
+  }
+  
+  div.payin-ref-layout div.ref-layout div.payee-name {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    // line-height: 25px;
+  }
+  
+  div.payin-ref-layout div.ref-layout div.suffix {
+    display: block;
+    font-size: 0.9em;
+    // line-height: 25px;
+  }
+  
+  div.payin-ref-layout div.ref-layout div.refNo1 {
+    display: block;
+    font-size: 0.9em;
+    // line-height: 25px;
+  }
+  
+  div.payin-ref-layout div.ref-layout div.refNo2 {
+    display: block;
+    font-size: 0.9em;
+    // line-height: 25px;
+  }
+  
+  div.payin-ref-layout div.amt-layout {
+    position: relative;
+    display: block;
+    float: left;
+    width: calc(100% - 205px);
+    margin-top: 5px;
+    border: #000 1px solid;
+    box-sizing: border-box;
+  }
+  
+  div.payin-ref-layout div.amt-layout div.hint {
+    display: block;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: #000 1px solid;
+  }
+  
+  div.payin-ref-layout div.amt-layout div.word-amt {
+    display: block;
+    float: left;
+    width: calc(100% - 155px);
+    // line-height: 35px;
+    font-size: 0.9em;
+    text-align: left;
+    padding-left: 5px;
+  }
+  
+  div.payin-ref-layout div.amt-layout div.num-amt {
+    display: block;
+    float: right;
+    width: 130px;
+    text-align: right;
+    padding-right: 5px;
+    border-left: #000 1px solid;
+    // line-height: 35px;
+    // height: 40px;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  
+  div.payin-ref-layout div.sign-layout {
+    display: block;
+    float: right;
+    width: 200px;
+    margin-top: 5px;
+  }
+  
+  div.payin-ref-layout div.sign-layout div.sign1 {
+    display: block;
+    font-size: 0.8em;
+    border: #000 1px solid;
+    padding-left: 3px;
+    text-align: left;
+    line-height: 15px;
+  }
+  div.payin-ref-layout div.sign-layout div.sign2 {
+    display: block;
+    font-size: 0.8em;
+    border: #000 1px solid;
+    border-top: none;
+    padding-left: 3px;
+    text-align: left;
+    line-height: 15px;
+  }
+  div.payin-ref-layout div.sign-layout div.sign3 {
+    display: block;
+    font-size: 0.8em;
+    border: #000 1px solid;
+    border-top: none;
+    padding-left: 3px;
+    text-align: left;
+    line-height: 15px;
+  }
+  /*aem================================================================*/
+  div.payin-ref-layout div.pl-title1 {
+    position: relative;
+    display: block;
+    float: left;
+    width: calc(100% - 255px);
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  div.payin-ref-layout div.pl-title1 div.hint {
+    display: block;
+    font-size: 0.8em;
+    text-align: left;
+    padding: 0px;
+  }
+  
+  div.payin-ref-layout div.sign {
+    display: block;
+    float: right;
+    width: 250px;
+    margin-top: 5px;
+    text-align: left;
+    margin-top: 5px;
+  }
+  
+  div.payin-ref-layout div.sign div.sign-block {
+    position: relative;
+    display: block;
+    height: 20px;
+    border-bottom: #000 1px dashed;
+  }
+  
+  div.payin-ref-layout div.sign div.sign-block div.sign-text {
+    position: absolute;
+    display: inline-block;
+    left: 0px;
+    top: 5px;
+    // background-color: #fff;
+    padding-right: 5px;
+    height: 25px;
+    font-size: 0.8em;
+  }
+  
+  /*endaem=============================================================*/
+  div.paycode-layout {
+    // position: relative;
+    display: flex;
+    flex-flow: row;
+    margin-top: 5px;
+  }
+  
+  div.paycode-layout div.descBC {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    width: 60%;
+  }
+  
+  div.paycode-layout div.descBC div.img-text {
+    padding-left: 20px;
+    text-align: center;
+  }
+  div.paycode-layout div.descQR {
+    // display: flex;
+    // flex-flow: column;
+    // display: block;
+    // float: left;
+    // width: 35%;
+    // height: 100px;
+  }
+  
+  div.f08 {
+    font-size: 0.8em;
+  }
+  
+  div.f08b {
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  
+  div.f11b {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .text_qrcode {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-align: center;
+  }
+  
+  @media only print {
+    div.btn-layout {
+      display: none;
+    }
+  
+    .container_layout {
+      padding: 5px;
+    }
+  }
+  

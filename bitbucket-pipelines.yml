@@ -1,0 +1,23 @@
+pipelines:
+  branches:
+    master:
+    - step:
+        size: 2x
+        services:
+          - docker
+        caches:
+          - docker
+        script: # Modify the commands below to build your repository.
+          - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+          - docker build -f Dockerfile  -t 71dev/rsu-staff:dev .
+          - docker push 71dev/rsu-staff:dev
+    - step: 
+        name: deploy to kubernates
+        image: atlassian/pipelines-kubectl
+        script: 
+          - echo $KUBE_CONFIG | base64 -d > kubeconfig 
+          - kubectl --insecure-skip-tls-verify  --kubeconfig=kubeconfig  rollout restart deployment/rsu-web-staff-deployment -n rsu
+definitions:
+  services:
+    docker:
+      memory: 7128

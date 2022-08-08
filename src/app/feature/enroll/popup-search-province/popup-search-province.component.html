@@ -1,0 +1,35 @@
+<mat-card-header>
+    <mat-card-title>แสดงผลจังหวัด</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+    <table mat-table [dataSource]="provinceData" matSort class="mat-elevation-z2" style="width: 100%;">
+        <tr mat-header-row *matHeaderRowDef="['province_code', 'province_name_th','6']"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: ['province_code', 'province_name_th','6']"></tr>
+        <!-- <ng-container matColumnDef="0">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ลำดับ</th>
+            <td mat-cell *matCellDef="let data; let index = index">
+                {{index+1}}
+            </td>
+        </ng-container> -->
+        <ng-container matColumnDef="province_code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>รหัส</th>
+            <td mat-cell *matCellDef="let data ; let index = index" style="cursor: pointer;" (click)="selectData(data)">
+                {{data.province_code}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="province_name_th">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อ </th>
+            <td mat-cell *matCellDef="let data" (click)="selectData(data)" style="cursor: pointer;">{{data.province_name_th}}</td>
+        </ng-container>
+        <ng-container matColumnDef="6">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+            <td mat-cell *matCellDef="let data"> 
+                  <button  mat-icon-button color="accent" (click)="selectData(data)"  aria-label="Example icon button with a home icon">
+                   เลือก
+                  </button>
+              </td>
+          </ng-container>
+    </table>
+    <!-- <br> -->
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+</mat-card-content>

@@ -1,0 +1,293 @@
+
+<div class="container_menu">    
+    <div class="logo" [ngStyle]="{'justify-content': isExpandMenu ? '':'center'}" >
+        <div class="rsu_text" [hidden]="!isExpandMenu" style="cursor: pointer;" [routerLink]="['/app/dashboard']">
+            <img src="assets/images/image.png">
+        </div>
+        <button mat-icon-button (click)="toggleMenu()" style="color: white;">
+            <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">
+                menu</mat-icon>
+        </button>
+    </div>
+    <div class="information" *ngIf="isExpandMenu">
+         <span class="username_text">{{nameUser}}</span>
+         <!-- <span class="email_text">{{mailUser}}</span> -->
+         <!-- <img class="user_img" src="assets/images/user.png" alt=""> -->
+    </div> 
+    <div class="menu_bg" *ngIf="isExpandMenu">
+        <span>MENU</span>
+    </div>
+    <mat-accordion *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                สมัครเรียน
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/enroll" [routerLinkActive]="'menu_item'" (click)="gotoenrollPage()">
+                            <li>สมัครเรียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/profile-detail" [routerLinkActive]="'menu_item'" (click)="profilePage()" >
+                            <li>แสดงรายละเอียดผู้สมัคร</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/installment" [routerLinkActive]="'menu_item'" (click)="installmentPage()" >
+                            <li>ผ่อนชำระ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/profile_detail_del" [routerLinkActive]="'menu_item'" (click)="profileDelPage()" >
+                            <li>ลบข้อมูลผู้สมัคร</li>
+                        </div>
+                        <!-- <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/arrange-room" [routerLinkActive]="'menu_item'" (click)="arrangeRoomPage()">
+                            <li>เลือกห้องสอบ</li>
+                        </div> -->
+                        <div *ngIf="role | showMenuRole: 'FAC-APP'" routerLink="/app/profile_detail_fac" [routerLinkActive]="'menu_item'" (click)="profile_fac_Page()" >
+                            <li>แสดงรายละเอียดผู้สมัครของคณะ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/import_contact" [routerLinkActive]="'menu_item'" (click)="import_contactPage()" >
+                            <li>นำเข้ารายชื่อผู้สมัคร</li>
+                        </div>
+                        <!-- <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/display-qrcode" [routerLinkActive]="'menu_item'" (click)="display_qrcode()" >
+                            <li>qr code</li>
+                        </div> -->
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <mat-accordion *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                สมัครเรียน บัณฑิตวิทยาลัย
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/addmission" [routerLinkActive]="'menu_item'" (click)="gotaddmissionPage()">
+                            <li>รายการการสมัครเรียน</li>
+                        </div>
+                       
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <mat-accordion *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                สมัครเรียน CYBER UNIVERSITY
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/admission-list1" [routerLinkActive]="'menu_item'" (click)="got_admission_list1()">
+                            <li>CYBER UNIVERSITY ปริญญาตรี</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/admission-list2" [routerLinkActive]="'menu_item'" (click)="got_admission_list2()">
+                            <li>CYBER UNIVERSITY ปริญญาโท</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/short-course-list" [routerLinkActive]="'menu_item'" (click)="got_short_course_list()">
+                            <li>Short Course</li>
+                        </div>
+                       
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <mat-accordion *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                นำเข้าผลสอบ
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/inport-score" [routerLinkActive]="'menu_item'" (click)="inportScorePage()">
+                            <li>นำเข้าคะแนนสอบ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/process" [routerLinkActive]="'menu_item'"  (click)="process()">
+                            <li>ประมวลผล</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'FAC-UPLOAD'" routerLink="/app/interview" [routerLinkActive]="'menu_item'" (click)="interview()" >
+                            <li>แบบไฟล์สอบสัมภาษณ์</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/admission" [routerLinkActive]="'menu_item'" (click)="admission()" >
+                            <li>ยืนยันการเข้าศึกษา</li>
+                        </div>
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <!-- report -->
+    <mat-accordion color='primary' *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                ตั้งค่า
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/Project" [routerLinkActive]="'menu_item'" (click)="gotoProjectSchedulePage()">
+                            <li>กำหนดโครงการ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/email-template" [routerLinkActive]="'menu_item'" (click)="gotoemail_templatePage()">
+                            <li>เทมเพลตอีเมล</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/document_type" [routerLinkActive]="'menu_item'" (click)="gotodocument_typePage()">
+                            <li>เอกสารประกอบการสมัคร</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/subject" [routerLinkActive]="'menu_item'" (click)="subjectPage()">
+                            <li>กำหนดรหัสวิชาสอบ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/academic_years" [routerLinkActive]="'menu_item'" (click)="gotoAcademicYearPage()">
+                            <li>กำหนดปีการศึกษา</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/academic_semesters" [routerLinkActive]="'menu_item'" (click)="gotoacademic_semestersPage()">
+                            <li>กำหนดภาคเรียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/school" [routerLinkActive]="'menu_item'" (click)="SchoolDataPage()">
+                            <li>กำหนดโรงเรียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/education_level" [routerLinkActive]="'menu_item'" (click)="education_levelPage()">
+                            <li>กำหนดวุฒิการศึกษา</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/program_type" [routerLinkActive]="'menu_item'" (click)="program_typePage()">
+                            <li>กำหนดสาขา/แผนก/โปรแกรมการศึกษา</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/coupon_discount" [routerLinkActive]="'menu_item'" (click)="couponPage()">
+                            <li>คูปองส่วนลดค่าสมัคร</li>
+                        </div>
+                        
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <mat-accordion color='primary' *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                กำหนดสิทธ์ผู้เข้าใช้งาน
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div  routerLink="/app/application-data" [routerLinkActive]="'menu_item'">
+                            <li>Data</li>
+                        </div>
+                        <div  routerLink="/app/application-object" [routerLinkActive]="'menu_item'">
+                            <li>Object</li>
+                        </div>                        
+                        <div  routerLink="/app/application-permission" [routerLinkActive]="'menu_item'">
+                            <li>Premission</li>
+                        </div>                        
+                        <div  routerLink="/app/application-role" [routerLinkActive]="'menu_item'">
+                            <li>Role</li>
+                        </div>                        
+                        <div  routerLink="/app/application-user" [routerLinkActive]="'menu_item'">
+                            <li>User</li>
+                        </div>
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <!-- <mat-accordion color='primary' *ngIf="isExpandMenu">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
+                รายงาน
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+                <div class="backgound_color_menu">
+                    <ul class="list_menu">
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายชื่อผู้สอบผ่าน ที่ได้คะแนนสูงสุด-ต่ำสุด</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายงานเชิงสถิติของการรับสมัคร(อันดับ 1 เท่านั้น)</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายชื่อผู้สอบผ่านข้อเขียนแยกตามหลักสูตร</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>ประกาศผลสอบข้อเขียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายชื่อและคะแนนผู้ผ่านการสอบข้อเขียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'"  [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_student_admissions">
+                        
+                            <li>โครงการรับสมัครนักศึกษา</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'"  [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_exam_room">
+                        
+                            <li>ผังห้องสอบ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_student_list_examroom">
+                        
+                            <li>รายชื่อผู้สอบ ติดหน้าห้องสอบ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_student_inexamroom">
+                            <li>รายชื่อผู้เข้าห้องสอบ</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'"   [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_separated_course">
+                        
+                            <li>รายชื่อผู้สมัครแยกตามสาขาวิชา(อันดับ 1 เท่านั้น)</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" routerLink="/app/report_summary_province_school" (click)="windowsSlid()">
+                            <li>รายชื่อผู้สมัครแยกตามโรงเรียน/จังหมด</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_applicants_address">
+                            <li>รายชื่อผู้สมัครพร้อมที่อยู่</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_summary_applicants_faculty">
+                            <li>สรุปจำนวนผู้สมัครแยกตามคณะ/วิทยาลัย</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'"  routerLink="/app/report_student_total_apply_online"  [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>สรุปจำนวนผู้สมัครออนไลน์</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" routerLink="/app/report_summary_each_school" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>สรุปการรับสมัครแต่ละโรงเรียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()" routerLink="/app/report_eligible_interview">
+                            <li>รายชื่อผู้มีสิทธิ์สอบสัมภาษณ์</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>ลาเบลชื่อ-ที่อยู่โรงเรียน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายงานสรุปรายได้จากการรับนักศึกษา</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายงานแสดงข้อมูลผู้สอบไม่ผ่าน</li>
+                        </div>
+                        <div *ngIf="role | showMenuRole: 'ALL'" [routerLinkActive]="'menu_item'" (click)="windowsSlid()">
+                            <li>รายงานแสดงข้อมูลผลการสอบสัมภาษณ์</li>
+                        </div>
+                    </ul>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+    </mat-accordion> -->
+    <!-- report -->
+</div>

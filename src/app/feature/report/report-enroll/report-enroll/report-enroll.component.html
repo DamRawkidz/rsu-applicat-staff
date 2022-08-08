@@ -1,0 +1,212 @@
+
+<form [formGroup]="form">
+<div class="body" >
+    <table width="100%;" style="font-size: 14px;" border="0" cellpadding="0" cellspacing="0" >
+        <!-- <tr>
+            <td align="center" class="headTitle"></td>
+        </tr> -->
+        <tr class="newLine2" [formGroupName]="'applicants'">
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left"  style="width:70px;">ID CARD:</td>
+                        <td style="width:110px;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >{{form.get('applicants.personal_id').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left"  style="width:40px;">GPA:</td>
+                        <td>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >{{form.get('applicants.gpa').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="newLine4" [formGroupName]="'applicantapply'" >
+            <td style="padding: 0px;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left" style="width: 100px;"></td>
+                        <td>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >{{form.get('applicantapply.payin_no').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+       
+        <tr class="newLine2" [formGroupName]="'applicantapply'">
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <!-- <td align="left" style="width: 150px;">เลขที่ใบเสร็จรับเงิน :</td> -->
+                        <td>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div  >รับสมัครนักศึกษาใหม่ {{form.get('applicantapply.education_type_name_th').value}}.......{{form.get('applicantapply.academic_semester_name_th').value}}/{{form.get('applicantapply.academic_year_name_th').value}} </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="newLine2" [formGroupName]="'applicantapply'">
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <!-- <td align="left"  style="width:100px;">ID CRAD:</td> -->
+                        <td style="width:150px;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >{{date | dateThai | date : 'dd MMM yyyy'}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- <td align="left"  style="width:45px;">GPA:</td> -->
+                        <td>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >ประจำปีการศึกษา{{form.get('applicantapply.academic_year_name_th').value}} ภาค{{form.get('applicantapply.academic_semester_name_th').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="newLine3" >
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="left"  style="width:70px;"></td>
+                        <td style="width:90px;" [formGroupName]="'applicantapply'">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >{{form.get('applicantapply.application_id').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- <td align="left"  style="width:45px;">GPA:</td> -->
+                        <td [formGroupName]="'applicants'">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div style="font-size: 18px;">{{form.get('applicants.prefix_code').value | getFormId : prefixs :'prefix_code' : 'prefix_name_th' : ''}}{{form.get('applicants.first_name_th').value}}  {{form.get('applicants.last_name_th').value}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <br>
+        <tr >
+            <td>
+                <table width="100%"  cellpadding="0" cellspacing="0">
+                    <!-- <tr>
+                        <td align="center"  style="width: 270px;">อันดับสาขาวิชาที่เลือก</td>
+                        <td align="center"  style="width: 140px;">วิชาที่สอบ</td>
+                        <td align="center" >วันที่-เวลาสอบ</td>
+                    </tr> -->
+    <br>
+                    <!-- ส่วนของ repeat content -->
+    
+                    <tr *ngFor="let data of course">
+                        <td  style="width: 400px;font-size: 16px;">{{data.major_code}} {{data.course_name_th}}</td>
+                        <td align="center"  style="width: 140px;"></td>
+                        <td align="center" ></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+        <tr class="newLine1">
+            <td>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <!-- <td align="left" style="width: 150px;">เลขที่ใบเสร็จรับเงิน :</td> -->
+                        <td>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" >
+                                        <div >รวม {{amount}} บาท &nbsp;&nbsp;&nbsp;({{ThaiBaht(amount)}}) </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+<tr class="newLine1">
+    <td>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- <td align="left"  style="width: 40px;">ลงชื่อ</td> -->
+                <td style="width: 335px;">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" >
+                                <div >สอบถามรายละเอียดเพิ่มเติมได้ที่ ฝ่ายแนะแนวและรับนักศึกษา โทร:02-7519900-10</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <!-- <td align="left"  style="width: 110px;">ผู้รับใบสั่งซื้อ</td> -->
+                <!-- <td align="left"  style="width: 40px;">ลงชื่อ</td> -->
+                <!-- <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" >
+                                <div class="underLine">&nbsp;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td> -->
+                <!-- <td align="left"  style="width: 150px;">ลายเซ็น</td> -->
+            </tr>
+        </table>
+    </td>
+</tr>
+
+    </table>
+</div>
+</form>
+<!-- <pre>{{form.getRawValue()| json}}</pre>  -->

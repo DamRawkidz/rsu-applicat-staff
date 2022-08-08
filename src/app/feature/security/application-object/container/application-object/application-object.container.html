@@ -1,0 +1,3 @@
+<app-application-object-search (onSearch)="onSearch($event)"></app-application-object-search>
+<br>
+<app-application-object-list [rows]="applicationData$ | async" (onDelete)="onDelete($event)"></app-application-object-list>

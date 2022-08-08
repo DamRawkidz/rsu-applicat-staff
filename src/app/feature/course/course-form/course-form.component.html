@@ -1,0 +1,274 @@
+<form [formGroup]="form">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <mat-card-header>
+                <mat-card-title>หลักสูตร</mat-card-title>
+            </mat-card-header>
+            <div class="flex_row">
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>รหัสหลักสูตร</mat-label>
+                    <input matInput formControlName="course_code" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>ชื่อหลักสูตร</mat-label>
+                    <input matInput formControlName="course_name_th" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                    <mat-label>ชื่อหลักสูตร (ภาษาอังกฤษ)</mat-label>
+                    <input matInput formControlName="course_name_en" appTypeEngCharacter />
+                </mat-form-field>
+            </div>
+            <div class="flex_row">
+                <mat-form-field class="paddingInput" style="width: 30%;">
+                    <mat-label>โครงการ</mat-label>
+                    <mat-select #program (valueChange)="changeFaculty($event)" formControlName="program_id">
+                        <mat-option *ngFor="let food of programData" [value]="food.program_id">
+                            {{food.program_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="paddingInput" style="width: 30%;">
+                    <mat-label>คณะ</mat-label>
+                    <mat-select (valueChange)="changeMajor($event)" formControlName="faculty_code">
+                        <mat-option *ngFor="let food of facultyData" [value]="food.faculty_code">
+                            {{food.faculty_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="paddingInput" style="width: 30%;">
+                    <mat-label>สาขา</mat-label>
+                    <mat-select formControlName="major_code">
+                        <mat-option *ngFor="let food of majorData" [value]="food.major_code">
+                            {{food.major_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+            <div class="flex_row">
+                <mat-form-field class="paddingInput" style="width: 30%;">
+                    <mat-label>E-mail Template</mat-label>
+                    <mat-select formControlName="email_template_id">
+                        <mat-option *ngFor="let food of emailTemplateData" [value]="food.email_template_id">
+                            {{food.email_template_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <!-- <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <mat-radio-group formControlName="application_check_flag" aria-label="Select an option"
+                style="width: 100%;">
+                ตรวจสอบใบสมัคร
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-radio-button [value]="true">ตรวจสอบ</mat-radio-button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-radio-button [value]="false">ไม่ตรวจสอบ</mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+    </mat-card>
+    <br> -->
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row">
+                <mat-radio-group  formControlName="application_check_flag" aria-label="Select an option"
+                    style="width: 100%;">
+                    <mat-label style="padding-right: 40px;">ตรวจสอบใบสมัคร&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                    <mat-radio-button [value]="true">ตรวจสอบ</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button [value]="false">ไม่ตรวจสอบ</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <br>
+            <br>
+            <div class="flex_row">
+                <mat-radio-group class="paddingInput" formControlName="interview_exam_flag" aria-label="Select an option"
+                    style="width: 20%;">
+                    <mat-label style="padding-right: 40px;">สอบสัมภาษณ์หรือไม่</mat-label>
+                    <mat-radio-button [value]="true">สอบ</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button [value]="false">ไม่สอบ</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field appearance="outline" style="width: 20%;" *ngIf="form.get('interview_exam_flag').value">
+                    <mat-label> ราคาสอบสัมภาษณ์ </mat-label>
+                    <input matInput type="number" formControlName="interview_exam_price" />
+                </mat-form-field>
+            </div>
+            <br *ngIf="!form.get('interview_exam_flag').value">
+            <br *ngIf="!form.get('interview_exam_flag').value">
+            <div class="flex_row">
+                <mat-radio-group class="paddingInput" formControlName="written_exam_flag" aria-label="Select an option" style="width: 20%;">
+                    <mat-label style="padding-right: 40px;">สอบข้อเขียนหรือไม่&nbsp;&nbsp;</mat-label>
+                    <mat-radio-button [value]="true">สอบ</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button [value]="false">ไม่สอบ</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field appearance="outline" style="width: 20%;" *ngIf="form.get('written_exam_flag').value">
+                    <mat-label style="padding-right: 40px;"> ราคาสอบข้อเขียน </mat-label>
+                    <input matInput type="number" formControlName="written_exam_price" />
+                </mat-form-field>
+            </div>
+            <br *ngIf="!form.get('written_exam_flag').value">
+            <br *ngIf="!form.get('written_exam_flag').value">
+            <div class="flex_row">
+                <mat-radio-group class="paddingInput" formControlName="practical_exam_flag" aria-label="Select an option"
+                    style="width: 20%;">
+                    <mat-label style="padding-right: 40px;">สอบปฏิบัติหรือไม่&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                    <mat-radio-button [value]="true">สอบ</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button [value]="false">ไม่สอบ</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field appearance="outline" style="width: 20%;" *ngIf="form.get('practical_exam_flag').value">
+                    <mat-label> ราคาสอบปฏิบัติ </mat-label>
+                    <input matInput type="number" formControlName="practical_exam_price" />
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_between">
+                <mat-card-header>
+                    <mat-card-title>เอกสารที่ใช้ในการสมัคร</mat-card-title>
+                </mat-card-header>
+                <mat-checkbox  formControlName="program_document_flag">ใช้เอกสารเดียวกับโครงการ</mat-checkbox>
+            </div>
+
+            <br *ngIf="form.get('program_document_flag').value == false">
+            <table class="mat-elevation-z2" style="width: 100%;" *ngIf="form.get('program_document_flag').value == false">
+                <tr style="height: 56px;">
+                    <th style="width: 20%;" class="th_head_befor"></th>
+                    <th style="width: 20%;text-align: left;" class="th_head_after">ชื่อเอกสาร</th>
+                </tr>
+                <tr style="height: 48px;" *ngFor="let data of documentData">
+                    <td class="td_body_befor"><mat-checkbox #doc [checked]="data.isCheck | checkDocument : data : form.getRawValue()"  (change)="addDocument(doc.checked,data)"></mat-checkbox></td>
+                    <td class="td_body_after">
+                       {{data.document_type_name_th}}
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_between">
+            <mat-card-header>
+                <mat-card-title>รอบที่เปิดรับสมัคร</mat-card-title>
+            </mat-card-header>
+            <mat-checkbox *ngIf="form.get('program_id').value != null" #schedulesC  (change)="addschedules(schedulesC.checked)">ใช้รอบที่เปิดรับสมัครเดียวกับโครงการ</mat-checkbox>
+            <button mat-icon-button color="accent" (click)="addschedulesForm()">
+                <mat-icon> <span class="material-icons" color="accent">
+                        add
+                    </span></mat-icon>
+            </button>
+        </div>
+
+         <br *ngIf="form['controls']['schedules']['controls'].length != 0">
+            <ng-container formArrayName="schedules">
+                <ng-container
+                    *ngFor="let schedules of form['controls']['schedules']['controls'];let schedulesIndex = index"
+                    [formGroupName]="schedulesIndex">
+                    <div class="flex_row_between">
+                    <mat-card-header>
+                        <mat-card-title>รอบที่&nbsp;{{schedulesIndex+1}}</mat-card-title>
+                    </mat-card-header>
+                    <button mat-icon-button color="accent" (click)="delschedulesForm(schedulesIndex)"
+                    aria-label="Example icon button with a home icon">
+                    <mat-icon> clear </mat-icon>
+                </button>
+                </div>
+                    <div class="flex_row">
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> รหัสรอบที่เปิดรับสมัคร </mat-label>
+                            <input disabled formControlName="program_schedule_code" matInput />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> ชื่อรอบที่เปิดรับสมัคร </mat-label>
+                            <input formControlName="program_schedule_name_th" matInput />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex_row">
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่เริ่มต้น </mat-label>
+                            <input matInput formControlName="apply_start_date" matInput (click)="datepickerstart.open()" readonly
+                                [matDatepicker]="datepickerstart" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerstart"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerstart></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่สิ้นสุด </mat-label>
+                            <input matInput formControlName="apply_end_date" matInput (click)="datepickerend.open()" readonly
+                                [matDatepicker]="datepickerend" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerend"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerend></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่เริ่มต้นสอบข้อเขียน </mat-label>
+                            <input matInput formControlName="written_exam_start_date" matInput readonly
+                                (click)="datepickerstart1.open()" [matDatepicker]="datepickerstart1" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerstart1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerstart1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่สิ้นสุดสอบข้อเขียน </mat-label>
+                            <input matInput formControlName="written_exam_end_date" matInput readonly
+                                (click)="datepickerend1.open()" [matDatepicker]="datepickerend1" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerend1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerend1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex_row">
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่เริ่มต้นสอบสัมภาษณ์ </mat-label>
+                            <input matInput formControlName="interview_exam_start_date" matInput readonly
+                                (click)="datepickerstart2.open()" [matDatepicker]="datepickerstart2" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerstart2"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerstart2></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่สิ้นสุดสอบสัมภาษณ์ </mat-label>
+                            <input matInput formControlName="interview_exam_end_date" matInput readonly
+                                (click)="datepickerend2.open()" [matDatepicker]="datepickerend2" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerend2"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerend2></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่เริ่มต้นลงทะเบียน </mat-label>
+                            <input matInput formControlName="enrollment_start_date" matInput readonly
+                                (click)="datepickerstart3.open()" [matDatepicker]="datepickerstart3" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerstart3"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerstart3></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                            <mat-label> วันที่สิ้นสุดลงทะเบียน </mat-label>
+                            <input matInput formControlName="enrollment_end_date" matInput readonly
+                                (click)="datepickerend3.open()" [matDatepicker]="datepickerend3" />
+                            <mat-datepicker-toggle matSuffix [for]="datepickerend3"></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerend3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+    
+    <br>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_end">
+                <button style="width: 190px;" color="accent" (click)="save()" mat-raised-button>บันทึก
+                    หลักสูตร</button>&nbsp;&nbsp;
+                <button mat-raised-button style="width: 190px;" (click)="close()" mat-raised-button>ยกเลิก</button>
+        
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+<!-- <pre>{{form.getRawValue()|json}}</pre> -->

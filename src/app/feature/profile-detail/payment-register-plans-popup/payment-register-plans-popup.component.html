@@ -1,0 +1,32 @@
+<div *ngIf="payment$ | async as payment">
+    <span style="font-size: 1.3rem;"><b>เลือกวิธีการชำระเงิน</b></span>
+    <br> 
+    <ng-container >
+        <span>ชื่อ - นามสกุล: {{data?.first_name_th}}  {{data?.last_name_th}}</span>
+        &nbsp;
+        <span>สาขาที่สมัคร: {{data?.course_name_th}}</span>
+    </ng-container>
+    
+    <ng-progress #progressBar [color]="'#ec407a'"></ng-progress>
+    <ng-container *ngIf="true">    
+        <div class="card" *ngFor="let payment_method of payment?.payment_methods; let i=index" (click)="onPayment(payment_method)">
+            <div class="flex_col">
+                <span><b>{{payment_method.payment_method_name}}</b></span>
+                <span>ค่าธรรมเนียม <b>{{ payment_method.fee | number: '1.0-0' }} </b>บาท</span>
+                <span>{{ payment_method?.message }}</span>
+            </div>
+            <img class="image_payment" [src]="payment_method.logo_url" alt="">
+        </div>    
+    </ng-container>
+</div>
+<form id="form1" target="_blank" action="https://pg.rsu.ac.th:1253/PaymentAuthWeb.aspx"  method="post"  style="display: none;">
+    user: <input type="text" class="form-control fData Mandatory"   id="User" name="User"     value="sa@domain.com" maxlength="20" /><br />
+    Pass:  <input type="text" class="form-control fData Mandatory"   id="Pass" name="Pass"     value="Password@2017" maxlength="20" /><br />
+    MerchantID:  <input type="text" class="form-control fData Mandatory"   id="MerchantID" name="MerchantID"     value="007" maxlength="20" /><br />
+    Ref1: <input type="text" class="form-control fData Mandatory"   id="Ref1" name="Invoice"     value="R18888881" maxlength="20" /><br />
+    Amount:      <input type="text" class="form-control fData Mandatory"   id="Amount" name="Amount"     value="10" maxlength="20" /><br />
+    Ref2:     <input type="text" class="form-control fData Mandatory"   id="Ref2" name="Ref2"     value="R28888881" maxlength="20" /><br />
+    Channel:     <input type="text" class="form-control fData Mandatory"   id="Channel" name="Channel"     value="WEB" maxlength="20" /><br />      
+    <br />              
+    <!-- <button type="submit" class="btn btn-success" id="btnSubmit" (click)="submitForm()">Pay</button>                   -->
+</form>

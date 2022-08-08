@@ -1,0 +1,41 @@
+<h1 class="container_form" (click)="back()">
+  data
+</h1>
+<form [formGroup]="form">
+<mat-card>
+  <mat-card-content>
+      <div class="layout_form">
+      <div class="flex_row_between">
+          <mat-form-field appearance="outline" style="width: 47%;">
+              <mat-label>app_object_code</mat-label>
+              <input matInput placeholder="app_object_code" formControlName="app_object_code">
+              <mat-error *ngIf="form.get('app_object_code').getError('required')">app_object_code</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 47%;">
+              <mat-label>app_object_name_th</mat-label>
+              <input matInput placeholder="app_object_name_th" formControlName="app_object_name_th">
+              <mat-error *ngIf="form.get('app_object_name_th').getError('required')">ใส่รหัสประเภทข่าว</mat-error>
+          </mat-form-field>
+      </div>
+
+      <div class="flex_row_between">
+          <mat-form-field style="width: 47%;" appearance="outline">
+              <mat-label>สถานะ</mat-label>
+              <mat-select placeholder="สถานะ" formControlName="status_id">
+                  <mat-option *ngFor="let item of status$ | async" [value]="item.status_id">
+                      {{item.status_name_th}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+  </div>
+  </mat-card-content>
+  <mat-card-actions [align]="'end'">
+      <app-confirm-button  (click)="saveData()" name="บันทึก"></app-confirm-button>
+      &nbsp;&nbsp;&nbsp;
+      <app-cancel-button (click)="onBack()" name="ยกเลิก"></app-cancel-button>
+  </mat-card-actions>
+</mat-card>
+<pre *ngIf="!isHideForm">{{form.getRawValue() | json}}</pre>
+</form>
+

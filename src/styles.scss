@@ -1,0 +1,141 @@
+/* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
+$my-custom-typography: mat.define-typography-config(
+    $font-family : 'Sarabun',
+    $input:  mat.define-typography-level(0.8rem, 1.6, 200),    
+);
+// พารามิเตอร์ ขนาดฟ้อน,ความกว้างinput,ความเข้ม
+
+@include mat.core($my-custom-typography);
+
+
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; }
+.mce-notification {display: none !important;}
+.tox-notifications-container {display: none  !important;}
+label > .mat-form-field-label {
+    overflow: unset !important;
+}
+
+@font-face {
+    font-family: 'rsuregular';
+    src: url('assets/fonts/rsu_regular-webfont.woff2') format('woff2');        
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'rsuregular-text';
+    src: url('assets/fonts/rsu_text_Regular.ttf') format('woff2');        
+    font-weight: normal;
+    font-style: normal;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;    
+    appearance: none;
+ 
+}
+
+.regulat_text {
+    font-family: 'rsuregular-text,sans-serif';
+}
+
+* {
+    //   font-family: 'rsuregular'
+    font-family: 'Sarabun', sans-serif;
+    // font-family: 'Kanit', sans-serif;
+  }
+.flex_col {
+    display: flex;
+    flex-flow: column;    
+
+    &_between {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+}
+
+.flex_row {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    // width: 100%;
+
+    &_between {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+    }
+
+    &_center {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    &_end {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-end;
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+.paddingInput {
+    padding-right: 20px;
+}
+
+
+.mat-expansion-indicator::after {
+    content: "";
+    color: white !important;
+}
+
+.mat-expansion-panel-body {
+    background-color: var(--menu_color);
+}
+
+.mat-accordion .mat-expansion-panel:last-of-type {
+    border-radius: 0px !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 !important;
+} 
+
+.mat-card-header-text {
+    width: 100%;
+}
+
+
+:root {
+    --menu_color: #1f2128
+}
+@media print
+{    
+	.print{
+        display:none;
+    }
+}
+
+@media screen
+{
+    .print{
+        display:block;
+    }
+}
+@media print {
+    html, body { height: unset; }
+}
+@media screen {
+    html, body { height: 100%; }
+}

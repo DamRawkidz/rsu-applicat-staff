@@ -1,0 +1,310 @@
+<!-- *ngIf="state$ | async as state" -->
+<div class="container_layout"> 
+    <div class="rsu-header-rpt">
+        <div class="left-addr">
+            <div style="font-weight: bold;">มหาวิทยาลัยรังสิต</div>
+            <div>52/347 ถนนพหลโยธิน</div>
+            <div>ต.หลักหก อ.เมือง</div>
+            <div>จ.ปทุมธานี 12000</div>
+            <div>โทร.0-2997-2222</div>
+        </div>
+        <div class="logo-layout">
+            <img src="/assets/print_icons/print_icon_rsu.png" style="width: 80px;">
+            <div class="f08b">มหาวิทยาลัยรังสิต</div>
+            <div class="f11b">ใบแจ้งการชำระเงิน</div>
+        </div>
+        <div class="inv-layout">
+            <div style="margin-bottom: 10px;">
+                <span style="margin-right: 15px;"></span>
+                เลขที่ 61000050
+                <!-- {{state[3].enrollmentSummary.payInNo}} -->
+            </div>
+            <div>2/ วันที่พิมพ์ {{currentDate | date: 'dd/LL/yyyy'}}</div>
+            <div>เวลาที่พิมพ์ {{currentTime| date: 'HH:mm' }}</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="rsu-info">
+        <div class="payee-name">ผู้ชำระเงิน: พริกไทย ใจสะอาด</div>
+        <div class="payee-code">รหัส: 6204550</div>
+        <div style="margin-right: auto;"></div>
+        <div class="payee-major"> คณะพยาบาล </div>
+        <!-- <div style="clear: both;"></div> -->
+    </div>
+    <div class="major-layout">
+        <table style="width: 100%;border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Code</th>
+                    <th style="text-align: left;">Section</th>
+                    <th style="text-align: left;">Course Title</th>
+                    <th style="text-align: center;">Credit</th>
+                    <th style="text-align: center;">Lecture <br> (บาท) </th>
+                    <th style="text-align: center;">Lab <br> (บาท) </th>
+                    <th style="text-align: right;">Amount <br> (บาท) </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of subjects; let index = index">
+                <tr>
+                    <td>{{item.subject_code}}</td>
+                    <td>
+                    <div>{{item.lab_section}}</div>
+                    </td>
+                    <td>{{item.year_subject_name_en}}</td>
+                    <td style="text-align: center;">{{item.credit}}</td>
+                    <td style="text-align: center;">{{item.total_lecture_amount | number}}</td>                
+                    <td style="text-align: center;">{{item.total_lab_amount | number}}</td>
+                    <td style="text-align: right;">{{ (item.total_lab_amount + item.total_lecture_amount) * item.credit | number}}</td>
+                </tr>                                              
+            </tbody>
+            <tbody>
+                <!-- <tr>
+                    <td colspan="6">ค่าหน่วยกิต ({{state[2].currentCredit }} หน่วยกิต)</td>
+                    <td style="text-align: right;">{{state[2].creditFee | number}}</td>
+                </tr> -->
+                <!-- <tr *ngFor="let academic of state[0].academics">
+                    <td colspan="6">
+                        <div style="display: block;height: 30px;">{{academic.feeName}}</div>                    
+                    </td>
+                    <td style="text-align: right;">{{academic.amount | number}}</td>
+                </tr> -->
+                <tr>
+                    <td colspan="6"><b>ค่าลงทะเบียนทั้งหมด</b></td>
+                    <td style="text-align: right;">{{ sum | number }}</td>
+                </tr>
+                <!-- <tr *ngFor="let credit of state[2].credits; let index = index">
+                    <td colspan="6">{{credit.name}} <span *ngIf="index == 0">({{state[2].currentCredit }} หน่วยกิต)</span> </td>
+                    <td style="text-align: right;">{{credit.amount | number}}</td>
+                </tr> -->
+                <!-- <ng-container *ngIf="state[2].debits.length != 0">
+                    <tr>
+                        <td colspan="6"><b>รายการหัก</b></td>
+                        <td style="text-align: right;">{{ sumDebit | number }}</td>
+                    </tr>
+                    <tr *ngFor="let credit of state[2].debits; let index = index">
+                        <td colspan="6">{{credit.name}} <span *ngIf="index == 0">({{state[2].currentCredit }} หน่วยกิต)</span> </td>
+                        <td style="text-align: right;">{{credit.amount | number}}</td>
+                    </tr>
+                </ng-container> -->
+                <br>
+    
+    
+    
+    
+    
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6" style="text-align: left;">ยอดรวมค่าลงทะเบียนทั้งหมด</th>
+                    <th style="text-align: right;"> {{  sum | number }} </th>
+                </tr>
+                <tr>
+                    <th colspan="6" style="text-align: left;">ยอดรวมรายการหัก</th>
+                    <th style="text-align: right;"> {{  0 | number }} </th>
+                </tr>
+                <tr>
+                    <th colspan="6" style="text-align: left;">ยอดรวมทั้งหมดที่ต้องชำระ</th>
+                    <th style="text-align: right;"> {{  sum | number }} </th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="due-date">(ชำระเงิน ได้ถึง {{last_payment_date}})</div>
+        <div class="amt-layout">
+            <!-- thaibath -->
+            <div class="word-amt" name="amt1">{{ sum | number | thaibath }}</div>
+            <div class="num-amt">{{ sum | number }}</div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="remark-layout">
+        <div class="hint-layout">
+            <div class="text-bold">หมายเหตุ</div>
+            <div class="text">1.หากไม่ชำระเงินตรงตามวันที่กำหนดไว้ การลงทะเบียนจะถือเป็นโมฆะ</div>
+            <div class="text">2.ค่าธรรมเนียมการชำระเงินเป็นไปตามเงื่อนไขของตัวแทนที่รับชำระ</div>
+        </div>
+        <div class="officer-sign-layout">
+            <div class="topic">สำหรับเจ้าหน้าที่ธนาคาร</div>
+            <div class="dash"></div>
+            <div class="payee-desc">ผู้รับเงิน</div>
+        </div>
+        <div class="customer-sign-layout">
+            <div class="sign-block">
+                <div class="topic">ผู้นำฝาก</div>
+            </div>
+            <div class="sign-block" style="margin-top: 5px;">
+                <div class="topic">เบอร์โทร</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="paycode-layout">
+                <div class="descBC" style="border: 1px solid black;padding: 5px;margin-left: 1px;">
+                    <span>ช่องทางการชําระเงินผ่านเคาน์เตอร์เซอร์วิส 
+                        <img src="/assets/print_icons/cs.png" width="20" align="bottom"> 
+                        <img src="/assets/print_icons/7-11.png" width="20" align="bottom"> 
+                    </span>
+                    <div><img style="width: 100%;" [src]="imageBase64"></div>
+                    <div class="img-text" style="align-self: center;">
+                        <!-- {{state[4].code}} -->
+                    </div>            
+                </div>
+                <div class="descQR" style="flex: 1;border: 1px solid black;padding: 5px;margin-left: 1px;">
+                    <div style="display: flex;flex-flow: column">
+                        <span>Thai QR Code ชําระภายใน 24 ชม. นับจากเวลาพิมพ</span>
+                        <div style="display: flex;justify-content: center;">                            
+                            <qrcode [qrdata]="'|0994000241241026204702966229000162712200'" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="ref-layout" style="border: 1px solid;padding: 5px;flex: 1;margin-left: 1px;">
+                    <div class="topic" style="border: 1px solid ;">Service Code: RSU</div>
+                    <div class="payee-name">ชื่อ  พริกไทย ใจสะอาด</div>
+                    <!-- <div class="suffix">Suffix: {{state[4].suffix}}</div>
+                    <div class="refNo1">Ref 1: {{state[4].ref1}} </div>
+                    <div class="refNo2">Ref 2: {{state[4].ref2}}  </div> -->
+                    <div class="suffix">Suffix: 02</div>
+                    <div class="refNo1">Ref 1: 12431324123400 </div>
+                    <div class="refNo2">Ref 2: 12  </div>
+                </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div style="display: block;line-height: 22px;text-align: right;font-size: 0.8em;">สำหรับธนาคาร</div>
+    <div class="payin-ref-layout">
+        <div class="bank-hint">
+            <div class="f08b">ช่องทางการชำระเงินผ่านธนาคาร</div>
+            <!-- <div class="f08b"><img src="/assets/print_icons/print_icon_rsu.png" width="20" align="bottom">เพื่อเข้าบัญชี มหาวิทยาลัยรังสิต</div> -->
+            <div class="f08" style="display: flex;align-items: center;">
+                <input type="checkbox" [disabled]="true" >
+                <img src="/assets/print_icons/bbl.png" width="20" align="bottom">
+                &nbsp;
+                &nbsp;
+                ธนาคารกรุงเทพ <b>BR-CODE 020 Comp Code: 00099</b> 
+                <!-- <br>
+                <input type="checkbox" [disabled]="true" style="visibility: hidden;"> (ค่าธรรมเนียม 5 บาทตอ่ รายการในชองทางอิเล็กทรอนิกส์และไม่เกิน 15 บาทต่อ รายการ ในเขต หรือไม่เกิน 30 บาทต่อรายการ ข้ามเขต ในช่องทางสาขา) -->
+            </div>
+            <div class="f08" style="display: flex;align-items: center;padding: 2px;">
+                <input type="checkbox" [disabled]="true">
+                <img src="/assets/print_icons/scb.png" width="20" align="bottom">
+                &nbsp;
+                &nbsp;
+                ธนาคารไทยพาณิชย <b>COMP.CODE 0005 (10 บาท / 10 บาท )(สถานศึกษา)</b> 
+            </div>
+            <div class="f08" style="display: flex;align-items: center;padding: 2px">
+                <input type="checkbox" [disabled]="true">
+                <img src="/assets/print_icons/bay.png" width="20" align="bottom">       
+                &nbsp;
+                &nbsp;
+                ธนาคารกรุงศรีอยุธยา <b>เลขที บัญชี 283-0-0-1188-8 (10 บาท /10 บาท )</b> 
+            </div>
+            <div class="f08" style="display: flex;align-items: center;padding: 2px">
+                <input type="checkbox" [disabled]="true">
+                <img src="/assets/print_icons/tmb.png" width="20" align="bottom">
+                &nbsp;
+                &nbsp;
+                ธนาคารทหารไทย <b>COMP.CODE 132 (10 บาท/10 บาท )</b> 
+            </div>
+            <div class="f08" style="display: flex;align-items: center;padding: 2px">
+                <input type="checkbox" [disabled]="true">
+                <img src="/assets/print_icons/kbt.jpg" width="20" align="bottom">
+                &nbsp;
+                &nbsp;
+                ธนาคารกรุงไทย <b>COMP.CODE 8265 (10 บาท/20 บาท )</b>             
+            </div>
+            <!-- <div class="f08">
+                <input type="checkbox" [disabled]="true"> ธนาคารอื่นๆ ที่ให้บริการรับชำระบิล * (ฺBiller ID : 099400024124103)
+                <img src="/assets/print_icons/kasikorn.png" width="20" align="bottom">
+                <img src="/assets/print_icons/scb.png" width="20" align="bottom">
+                <img src="/assets/print_icons/bay.png" width="20" align="bottom">       
+                <img src="/assets/print_icons/ktb.png" width="20" align="bottom">
+                <img src="/assets/print_icons/tmb.png" width="20" align="bottom">
+                <img src="/assets/print_icons/k-nakin.png" width="20" align="bottom">                        
+                <img src="/assets/print_icons/gdb.jpg" width="20" align="bottom">                        
+                <img src="/assets/print_icons/tanachat.jpg" width="20" align="bottom">                        
+                <img src="/assets/print_icons/mizuho.png" width="20" align="bottom">                        
+                <img src="/assets/print_icons/uob.png" width="20" align="bottom">                        
+                <img src="/assets/print_icons/cimb.png" width="20" align="bottom">                        
+                <img src="/assets/print_icons/icbc.jpg" width="20" align="bottom">                        
+                <div>(ค่าธรรมเนียม 5 บาทต่อรายการในช่องทางอิเล็กทรอนิกส์ และไม่เกิน 20 บาทตอ่ รายการ ในช่องทางสาขา)</div>
+            </div> -->
+            <div style="display: flex;flex-flow: column;justify-content: space-between;">
+                    <!-- <img [src]="imageBase642">
+                    <div class="img-text" style="align-self: center;">
+                        {{state[4].code2}}
+                    </div>             -->
+                </div>            
+            
+            <!-- <div class="f08">
+                <img src="/assets/print_icons/scb.png" width="20" align="bottom">
+                ธนาคารไทยพาณิชย์ COMP.CODE 0005 (10 บาท / 10 บาท)(สถานศึกษา)
+            </div>
+            <div class="f08">
+                <img src="/assets/print_icons/tmb.png" width="20" align="bottom">
+                ธนาคารทหารไทย COMP.CODE 132 (10 บาท / 10 บาท)
+            </div>
+            <div class="f08">
+                <img src="/assets/print_icons/ktb.png" width="20" align="bottom">
+                ธนาคารกรุงไทย COMP.CODE 8265 (10 บาท / 20 บาท)
+            </div>
+            <div class="f08">
+                <img src="/assets/print_icons/bay.png" width="20" align="bottom">
+                ธนาคารกรุงศรีอยุธยา เลขที่บัญชี 283-0-0-1188-8 (10 บาท / 10 บาท)
+            </div> -->
+            <!-- <div class="f08">
+                <img src="/assets/print_icons/cs.png" width="20" align="bottom">
+                เคาน์เตอร์เซอร์วิส
+            </div> -->
+        </div>
+        <div class="ref-layout">
+            <div class="topic">Service Code: RSU ฺBill</div>
+            <div class="payee-name">ชื่อ  พริกไทย ใจสะอาด</div>        
+            <div class="suffix">Suffix: 02</div>
+            <div class="refNo1">Ref 1: 12431324123400 </div>
+            <div class="refNo2">Ref 2: 12  </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="amt-layout">
+            <div class="hint"> ชำระเงินภายในวันที่ 11 ธันวาคม 2563 เท่านั้น </div>
+            <!-- thaibath -->
+            <div class="word-amt">ตัวอักษร <span style="font-weight: bold;" name="amt2"> {{ sum | number | thaibath }} </span></div>
+            <div class="num-amt"> {{ sum | number }} บาท </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="sign-layout">
+            <div class="sign1">สำหรับเจ้าหน้าที่</div>
+            <div class="sign2">ผู้รับเงิน</div>
+            <div class="sign3">ผู้รับมอบอำนาจ</div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="pl-title1">
+            <div class="hint">หมายเหตุ : ท่านสามารถตรวจสอบรายชื่อธนาคารและผู้ให้บริการที่เข้าร่วมได้จากเว็ปไซต์ของธนาคารแห่งประเทศไทย ค่าธรรมเนียมเป็นไปตามเงื่อนไขและข้อกำหนดของแต่ละธนาคาร/ผู้ให้บริการ</div>
+        </div>
+        <div class="sign">
+            <div class="sign-block">
+                <div class="sign-text">ผู้นำฝาก / เบอร์โทร</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!-- <div class="paycode-layout">
+            <div class="descBC">                
+                <div>
+                    <img [src]="imageBase64">
+                </div>
+                <div class="img-text">
+                    {{state[4].code}}
+                </div>            
+            </div>
+            <div class="descQR">
+                    <div>
+                        <qrcode [qrdata]="state[4].code" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+                    </div>
+            </div>
+        <div style="clear: both;"></div>
+    </div> -->
+        <div class="btn-layout">
+            <button type="button">ย้อนกลับ</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button"  onclick="window.print()">พิมพ์ใบชำระเงิน</button>
+        </div>
+    </div>
+    

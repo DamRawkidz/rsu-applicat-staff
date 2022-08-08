@@ -1,0 +1,49 @@
+<mat-card class="mat-elevation-z2">
+    <mat-card-header>
+        <mat-card-title>สถิติผู้สมัครแยกตามโครงการ</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="tableApplyPrograme" matSort style="width: 100%;">
+            <tr mat-header-row *matHeaderRowDef="['index','application_status_name_th','1','2','3','4']"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: ['index','application_status_name_th','1','2','3','4']"></tr>
+            <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ลำดับ</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{index + 1}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="application_status_name_th">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>หลักสูตร</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.name}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="1">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>จำนวนผู้สมัคร</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.status[12]?.no_of_applications}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="2">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ชำระค่าสมัครแล้ว</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.status[0]?.no_of_applications}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="3">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ยังไม่ได้ชำระค่าสมัคร</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.status[4]?.no_of_applications}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="4">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ชำระค่าลงทะเบียนแล้ว</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{ data.status[7]?.no_of_applications}}
+                </td>
+            </ng-container>
+        </table>
+        <br>
+        <mat-paginator [pageSizeOptions]="[20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+</mat-card>

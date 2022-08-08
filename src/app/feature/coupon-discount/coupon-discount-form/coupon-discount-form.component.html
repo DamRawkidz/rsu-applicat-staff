@@ -1,0 +1,69 @@
+<form [formGroup]="form">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <mat-card-header>
+                <mat-card-title>คูปองส่วนลด</mat-card-title>
+            </mat-card-header>
+            <div class="flex_row_between">
+                <mat-form-field class="paddingInput" appearance="outline" style="width: 40%;">
+                    <mat-label> รหัสโค๊ดคูปองส่วนลด</mat-label>
+                    <input matInput formControlName="coupon_code" />
+                </mat-form-field>
+                <mat-form-field class="paddingInput" appearance="outline" style="width: 40%;">
+                    <mat-label> ชื่อโค๊ดคูปองส่วนลด </mat-label>
+                    <input matInput formControlName="coupon_name_th" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field class="paddingInput" appearance="outline" style="width: 40%;">
+                    <mat-label> มูลค่า</mat-label>
+                    <input matInput formControlName="amount" type="number" />
+                </mat-form-field>
+                <mat-form-field class="paddingInput" appearance="outline" style="width: 40%;">
+                    <mat-label> จำนวนทั้งหมด </mat-label>
+                    <input matInput formControlName="quantity" type="number" />
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 40%;">
+                    <mat-label> วันหมดอายุ </mat-label>
+                    <input matInput readonly [min]="date" formControlName="expiry_date"
+                        (dateChange)="dateChange($event.value,'expiry_date')"
+                        (selectedValueChange)="dateChange($event,'expiry_date')" (click)="datepickerend.open()"
+                        [matDatepicker]="datepickerend" />
+                    <mat-datepicker-toggle matSuffix [for]="datepickerend">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #datepickerend></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="paddingInput" style="width: 40%;">
+                    <mat-label>สถานะ</mat-label>
+                    <mat-select formControlName="status_id">
+                        <mat-option *ngFor="let data of statusData" [value]="data.status_id">
+                            {{data.status_name_th}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex_row_between">
+                <ng-container>
+                    <mat-radio-group formControlName="coupon_type_id" aria-label="Select an option"
+                        style="width: 100%;">
+                        <mat-radio-button *ngFor="let couponType of couponTypeData" [value]="couponType.coupon_type_id">
+                            {{couponType.coupon_type_name_th}}</mat-radio-button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </mat-radio-group>
+                </ng-container>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <div class="flex_row_end">
+                <button style="width: 190px;" (click)="save()" color="accent"
+                    mat-raised-button>บันทึก</button>&nbsp;&nbsp;
+                <button mat-raised-button style="width: 190px;" (click)="close()" mat-raised-button>ยกเลิก</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+<!-- <pre>{{form.getRawValue()|json}}</pre> -->

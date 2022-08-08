@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title style="width: 100%;">
+            <div class="flex_row_between">
+                <h1> {{ title }} </h1>
+                <ng-container *ngIf="showButton">
+                    <app-confirm-button [name]="confirmNameButton" (click)="onClickConfirmButton.emit()"></app-confirm-button>
+                </ng-container>            
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <ng-content select="[content]"></ng-content>        
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,3 @@
+<app-application-permission-search (onSearch)="onSearch($event)"></app-application-permission-search>
+<br>
+<app-application-permission-list [rows]="permission$ | async" (onDelete)="remove($event)"></app-application-permission-list>

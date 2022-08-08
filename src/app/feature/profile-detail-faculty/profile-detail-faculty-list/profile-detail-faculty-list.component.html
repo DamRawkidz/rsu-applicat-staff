@@ -1,0 +1,157 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <mat-card-title>แสดงรายละเอียดผู้สมัคร</mat-card-title>
+        <div class="flex_row">
+            <mat-form-field appearance="outline" class="paddingInput" style="width: 20%">
+                <mat-label>ปีการศึกษา</mat-label>
+                <mat-select [(ngModel)]="searchInput.academic_year_id">
+                    <mat-option *ngFor="let item of academicYearData" [value]="item.academic_year_id">
+                        {{item.academic_year_name_th}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="paddingInput" style="width: 20%">
+                <mat-label>ภาคเรียน</mat-label>
+                <input disabled [(ngModel)]="searchInput.academic_semester_id" (input)="recall($event.target.value)" matInput />
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field style="width: 100%;" appearance="outline" class="paddingInput">
+                <input matInput #courseCode [(ngModel)]="searchInput.course_code" placeholder="ค้นหาหลักสูตร"
+                    aria-label="ค้นหาหลักสูตร" [matAutocomplete]="course" />
+                <mat-label>ค้นหาหลักสูตร</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #course="matAutocomplete">
+                    <mat-option
+                        *ngFor="let ad of courseData | searchInputAuto : searchInput.course_code : 'display' "
+                        [value]="ad.course_code" >
+                        {{ad.display}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <div class="flex_row" style="width: 40%;">
+                <div class="paddingInput">
+                    <button style="width: 190px;" (click)="search()" mat-stroked-button color="accent"> ค้นหา</button>
+                </div>
+                <div class="paddingInput">
+                    <button style="width: 190px;" (click)="clear()" mat-stroked-button color="accent"> ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    
+    </mat-card-content>
+</mat-card>
+<br>
+<mat-card class="mat-elevation-z4" >
+    <mat-card-header>
+        <mat-card-title>แสดงผลรายละเอียดผู้สมัครจำนวน {{rows?.filteredData?.length}} คน</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="rows" matSort class="mat-elevation-z2" style="width: 100%;">
+            <tr mat-header-row *matHeaderRowDef="['0','1', '2','3','4','5','6']"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: ['0','1', '2', '3','4','5','6']"></tr>
+            <ng-container matColumnDef="0">
+                <th mat-header-cell *matHeaderCellDef>ลำดับ</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{index+1}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="1">
+                <th mat-header-cell *matHeaderCellDef>เลขที่ผู้สมัครสอบ</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.application_id}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="2">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อ-สกุล </th>
+                <td mat-cell *matCellDef="let data">
+                    {{data.prefix_name_th}}{{data.first_name_th}}&nbsp;{{data.last_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="3">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ประเภทการศึกษา </th>
+                <td mat-cell *matCellDef="let data">
+                    {{data.education_type_name_th}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="4">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> เลขโครงการ </th>
+                <td mat-cell *matCellDef="let data">{{data.program_code}}-{{data.program_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="5">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> สถานะผู้สมัคร </th>
+                <td mat-cell *matCellDef="let data">{{data.application_status_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="6">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let data">
+                    <button mat-icon-button color="accent" (click)="addPage(data.applicant_apply_id)"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon matSuffix>
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="mat-elevation-z4" *ngIf="role | showTable: 'FAC-APP'">
+    <mat-card-header>
+        <mat-card-title>แสดงผลรายละเอียดผู้สมัครจำนวน {{rowsFac?.filteredData?.length}} คน</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="rowsFac" matSort class="mat-elevation-z2" style="width: 100%;">
+            <tr mat-header-row *matHeaderRowDef="['0','1', '2','3','4','5','6']"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: ['0','1', '2', '3','4','5','6']"></tr>
+            <ng-container matColumnDef="0">
+                <th mat-header-cell *matHeaderCellDef>ลำดับ</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{index+1}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="1">
+                <th mat-header-cell *matHeaderCellDef>เลขที่ผู้สมัครสอบ</th>
+                <td mat-cell *matCellDef="let data; let index = index">
+                    {{data.application_id}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="2">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อ-สกุล </th>
+                <td mat-cell *matCellDef="let data">
+                    {{data.prefix_name_th}}{{data.first_name_th}}&nbsp;{{data.last_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="3">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ประเภทการศึกษา </th>
+                <td mat-cell *matCellDef="let data">
+                    {{data.education_type_code | getFormId : educationTypesData : 'education_type_code' : 'education_type_name_th' : ''}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="4">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> เลขโครงการ </th>
+                <td mat-cell *matCellDef="let data">{{data.program_code}}-{{data.program_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="5">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> สถานะผู้สมัคร </th>
+                <td mat-cell *matCellDef="let data">{{data.application_status_name_th}}</td>
+            </ng-container>
+            <ng-container matColumnDef="6">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let data">
+                    <button mat-icon-button color="accent" (click)="addPage(data.applicant_apply_id)"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon matSuffix>
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        </table>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,172 @@
+<mat-card class="mat-elevation-z4">
+        <div class="flex_row_between">
+            <mat-card-title style="width: 94%;">แสดงผลการสร้างตารางสอบ:จัดเรียงตามลำดับใบสม้คร </mat-card-title>
+        </div>
+    <mat-card-content>
+        <table class="mat-elevation-z2" style="width: 100%;">
+            <tr style="height: 56px;">
+                <th style="width: 5%;" class="th_head_befor">ลำดับ</th>
+                <th style="width: 10%;" class="th_head">วัน</th>
+                <th style="width: 15%;text-align: center;" class="th_head" colspan="2">เวลา</th>
+                <th style="width: 15%;" class="th_head">ห้องสอบ อาคาร:</th>
+                <th style="width: 15%;" class="th_head">ชั้น</th>
+                <th style="width: 15%;" class="th_head">ห้อง:</th>
+                <th style="width: 15%;" class="th_head">จำนวน </th>
+                <th style="width: 10%;" class="th_head_after"></th>
+            </tr>
+            <tr style="height: 48px;">
+                <td class="td_body_befor">1</td>
+                <td class="td_body">xx</td>
+                <td class="td_body">xx</td>
+                <td class="td_body">xx</td>
+                <td class="td_body">x</td>
+                <td class="td_body">x</td>
+                <td class="td_body">x</td>
+                <td class="td_body">x </td>
+                <td class="td_body_after">
+                    <button mat-icon-button color="accent" (click)="show = 1">
+                        <mat-icon> <span class="material-icons">
+                                create
+                            </span> </mat-icon>
+                    </button>&nbsp;
+                    <button mat-icon-button color="accent" aria-label="Example icon button with a home icon">
+                        <mat-icon> <span class="material-icons">
+                            assignment
+                            </span> </mat-icon>
+                    </button>
+                </td>
+            </tr>
+            <tr style="height: 48px;">
+                <td class="td_body_befor"></td>
+                <td class="td_body"></td>
+                <td class="td_body"></td>
+                <td class="td_body"></td>
+                <td class="td_body"></td>
+                <td class="td_body"></td>
+                <td class="td_body">รวมจำนวน :</td>
+                <td class="td_body">x </td>
+                <td class="td_body_after"></td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+<br>
+<ng-container *ngIf="show == 1">
+<mat-card class="mat-elevation-z4">
+    <!-- <mat-card-header> -->
+    <div class="flex_row_center">
+        <mat-card-title style="width: 100%;text-align: center;">รายชื่อผู้สมัครสอบ </mat-card-title>
+    </div>
+    <!-- </mat-card-header> -->
+
+</mat-card>
+<br>
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <table class="mat-elevation-z2" style="width: 100%;">
+            <tr style="height: 56px;">
+                <th  class="th_head_befor">ลำดับ</th>
+                <th  class="th_head">รหัสโครงการ :</th>
+                <th  class="th_head">คณะ :</th>
+                <th  class="th_head">สาขา :</th>
+                <th  class="th_head_after">รหัสหลักสูตร :</th>
+            </tr>
+            <tr style="height: 48px;">
+                <td class="td_body_befor">1</td>
+                <td class="td_body">xx</td>
+                <td class="td_body">xx</td>
+                <td class="td_body">xx</td>
+                <td class="td_body_after">xx</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+<br>
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <div class="flex_row_between">
+            <mat-form-field appearance="outline" style="width: 20%;">
+                <mat-label>ลำดับ</mat-label>
+                <input matInput />
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 20%;">
+                <mat-label>วัน</mat-label>
+                <input matInput />
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 20%;">
+                <mat-label>เวลา</mat-label>
+                <input matInput />
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 20%;">
+                <mat-label>ถึง</mat-label>
+                <input matInput />
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field appearance="outline" style="width: 30%;">
+                <mat-label>ห้องสอบ</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of ['25xx','25xx']" [value]="food">
+                        {{food}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 30%;">
+                <mat-label>อาคาร</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of ['25xx','25xx']" [value]="food">
+                        {{food}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 30%;">
+                <mat-label>ชั้น</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of ['25xx','25xx']" [value]="food">
+                        {{food}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field appearance="outline" style="width: 20%;">
+                <mat-label>จำนวน</mat-label>
+                <input matInput />
+            </mat-form-field>
+        </div>
+       
+
+    </mat-card-content>
+</mat-card>
+<br>
+<mat-card class="mat-elevation-z4">
+    <mat-card-header>
+        <div class="flex_row_between">
+            <mat-card-title style="width: 94%;">แสดงผลการจัดลำดับการสอบ</mat-card-title>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <table class="mat-elevation-z2" style="width: 100%;">
+            <tr style="height: 56px;">
+                <th style="width: 5%;" class="th_head_befor">ลำดับ</th>
+                <th style="width: 10%;" class="th_head">เลขใบสมคร</th>
+                <th style="width: 15%;" class="th_head">ห้องสอบ อาคาร:</th>
+                <th style="width: 15%;" class="th_head">ชื่อ</th>
+                <th style="width: 15%;" class="th_head_after">นามสกุล</th>
+            </tr>
+            <tr style="height: 48px;">
+                <td class="td_body_befor">1</td>
+                <td class="td_body">x</td>
+                <td class="td_body">x</td>
+                <td class="td_body">x </td>
+                <td class="td_body_after">xx</td>
+            </tr>
+        </table>
+        <br>
+        <div class="flex_row_end">
+
+            <button  mat-raised-button color="accent"> พิมพ์</button>
+        </div>
+    </mat-card-content>
+</mat-card>
+</ng-container>

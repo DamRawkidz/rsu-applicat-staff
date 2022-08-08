@@ -1,0 +1,89 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <mat-card-header>
+            <mat-card-title>รายชื่อผู้เข้าห้องสอบ</mat-card-title>
+        </mat-card-header>
+        <div class="flex_row">
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput #programInput onfocus="select()" [(ngModel)]="searchInput.programs"
+                    placeholder="ค้นหาโครงการ" aria-label="ค้นหาโครงการต้องการศึกษา" [matAutocomplete]="programs" />
+                <mat-label>ค้นหาโครงการ</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #programs="matAutocomplete">
+                    <mat-option (click)="changeProgram(ad)"
+                        *ngFor="let ad of programsData | searchInputAuto : searchInput.programs : 'display'"
+                        [value]="ad.program_name_th">
+                        {{ad.display}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput onfocus="select()" [(ngModel)]="searchInput.year" placeholder="ปีการศึกษา"
+                    aria-label="ค้นหาปีต้องการศึกษา" [matAutocomplete]="academicYear" />
+                <mat-label>ปีการศึกษา</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #academicYear="matAutocomplete">
+                    <mat-option (onSelectionChange)="changeacademicSemester(ad.academic_year_id)"
+                        *ngFor="let ad of academicYearData | searchInputAuto : searchInput.year : 'academic_year_name_th'"
+                        [value]="ad.academic_year_name_th">
+                        {{ad.academic_year_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput onfocus="select()" [(ngModel)]="searchInput.sector" placeholder="ภาคการศึกษา"
+                    aria-label="ค้นหาภาคการศึกษา" [matAutocomplete]="academicSemester" />
+                <mat-label>ภาคการศึกษา</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #academicSemester="matAutocomplete">
+                    <mat-option (onSelectionChange)="input_sector(ad.academic_semester_id)"
+                        *ngFor="let ad of academicSemesterData | searchInputAuto : searchInput.sector : 'semester_name_th'"
+                        [value]="ad.semester_name_th">
+                        {{ad.semester_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput  onfocus="select()" [(ngModel)]="searchInput.exam_name_start" placeholder="ตั้งแต่วิชา"
+                    aria-label="" [matAutocomplete]="courseStart"  />
+                <mat-label>ตั้งแต่วิชา</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #courseStart="matAutocomplete">
+                    <mat-option 
+                    (onSelectionChange)="startExam(ad.exam_subject_name_th)"
+                    *ngFor="let ad of examSubjectsData | searchInputAuto : searchInput.exam_name_start : 'exam_subject_name_th' "
+                    [value]="ad.exam_subject_name_th" >
+                    {{ad.exam_subject_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput  onfocus="select()" [(ngModel)]="searchInput.exam_name_end" placeholder="ถึง"
+                    aria-label="" [matAutocomplete]="courseEnd"  />
+                <mat-label>ถึง</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #courseEnd="matAutocomplete">
+                    <mat-option
+                    (onSelectionChange)="endExam(ad.exam_subject_name_th)"
+                        *ngFor="let ad of examSubjectsData | searchInputAuto : searchInput.exam_name_end : 'exam_subject_name_th' "
+                        [value]="ad.exam_subject_name_th" >
+                        {{ad.exam_subject_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        
+        <div class="flex_row" style="width: 50%;">
+            <!-- <div class="paddingInput">
+                <button style="width: 190px;" (click)="search()" mat-stroked-button color="accent"> ค้นหา</button>
+            </div> -->
+            <div class="paddingInput">
+                <button style="width: 190px;" (click)="search()" color="accent" mat-raised-button>ค้นหา</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

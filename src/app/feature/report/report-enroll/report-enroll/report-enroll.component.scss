@@ -1,0 +1,76 @@
+
+
+
+.body {
+    font-family: "THSarabunNew";
+    // width: 18cm;
+    // height: 14cm;
+    // margin: 3cm 1.5cm 1.0cm 1.5cm;
+    background-color: unset;
+}
+
+.logoGaruda1 {
+    height: 1.5cm;
+    position: absolute;
+}
+
+.headTitle {
+    font-size: 29pt;
+    font-weight: bold;
+    height: 35pt;
+}
+
+.textBold {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.textNormal {
+    font-size: 16pt;
+}
+
+.underLine {
+    border: 0px dotted #333333;
+    border-bottom-width: 1px;
+}
+
+.newLine1 {
+    height: 28pt;
+}
+
+.newLine2 {
+    height: 20pt;
+}
+.newLine3 {
+    height: 32pt;
+}
+.newLine4 {
+    height: 20pt;
+}
+.newLine5 {
+    height: 30pt;
+}
+
+.newParagraph {
+    width: 2.5cm;
+}
+
+@media print
+{    
+	.print{
+        display:none;
+    }
+}
+
+@media screen
+{
+    .print{
+        display:block;
+    }
+}
+@media print {
+    html, body { height: unset; }
+}
+@media screen {
+    html, body { height: 100%; }
+}

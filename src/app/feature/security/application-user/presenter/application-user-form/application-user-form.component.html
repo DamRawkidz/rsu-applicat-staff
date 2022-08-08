@@ -1,0 +1,71 @@
+
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-content>
+      <div class="flex_row_between">
+        <mat-form-field appearance="outline" style="width: 47%;">
+            <mat-label>รหัส</mat-label>
+            <input type="text"
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   formControlName="code"
+                   [matAutocomplete]="auto">
+                <mat-icon matSuffix>search</mat-icon>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="selectUser(employee)" *ngFor="let employee of employee$ | async" [value]="employee.display_name_th">
+                {{ employee.display_name_th }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+    </div>
+    <div class="flex_row">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>ชื่อเต็ม</mat-label>
+            <input matInput placeholder="ชื่อประเภทข่าว" formControlName="display_name" [disabled]="true">
+            <mat-error *ngIf="form.get('display_name').getError('required')">เลือกประเภทสิทธ์</mat-error>
+        </mat-form-field>
+    </div>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <mat-card>
+      <mat-card-content>
+        <button mat-raised-button color="accent" (click)="addRole()">
+          <b>เพิ่ม</b>
+        </button>        
+        <br><br>
+        <ng-container formArrayName="app_user_roles">
+          <ng-container *ngFor="let item of form['controls']['app_user_roles']['controls']; let index = index" [formGroupName]="index">
+            <div class="flex_row">
+              <mat-form-field appearance="outline">
+                  <mat-label>เลือกสิทธ์</mat-label>
+                  <mat-select formControlName="app_role_id">
+                    <mat-option *ngFor="let item of role" [value]="item.app_role_id">
+                      {{item.app_role_name_th}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              <div>
+                <button mat-icon-button color="accent" (click)="addRole()"><mat-icon>add</mat-icon></button>
+                <button mat-icon-button color="accent" (click)="removeRole(index)"><mat-icon>clear</mat-icon></button>
+              </div>
+
+            </div>
+          </ng-container>
+        </ng-container>
+      </mat-card-content>
+    <mat-card-actions [align]="'end'">      
+      <button mat-raised-button color="accent" (click)="back()">
+        <b>ยกเลิก</b>
+      </button>
+        &nbsp;
+      <button mat-raised-button color="accent" (click)="save()">
+          <b>บันทึก</b>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+    <pre *ngIf="!isProduction"> {{ form.getRawValue() | json }} </pre>
+  </form>
+

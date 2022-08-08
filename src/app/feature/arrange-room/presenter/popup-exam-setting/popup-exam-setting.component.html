@@ -1,0 +1,32 @@
+<h1 mat-dialog-title rtl> แก้ไขห้องสอบ</h1>
+<div mat-dialog-content rtl>
+
+    <div class="flex_row">
+        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+            <mat-label>ห้องสอบ อาคาร</mat-label>
+            <mat-select #building>
+                <mat-option (click)="getRooms(building.value)" *ngFor="let year of buildingData"
+                    [value]="year.building_code">
+                    {{year.building_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+            <mat-label>ห้อง</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let data of roomsData" [value]="data.room_no">
+                    {{data.room_no}}-{{data.room_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+            <mat-label> จำนวน </mat-label>
+            <input type="number"  matInput />
+        </mat-form-field>
+    </div>
+
+    <br />
+    <div class="flex_row_end">
+        <button style="width: 190px;" color="accent" mat-raised-button>บันทึก</button>
+    </div>
+</div>

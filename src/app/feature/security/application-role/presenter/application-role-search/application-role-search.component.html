@@ -1,0 +1,23 @@
+<h1>Role</h1>
+<app-search-template [confirmNameButton]="'ค้นหา'" (onClickConfirmButton)="search()" (onClickCancleButton)="reset()">
+<ng-container content>
+    <div class="flex_row">
+            <mat-form-field appearance="outline" style="width: 50%;">
+                <mat-label>รหัส</mat-label>
+                <input matInput placeholder="รหัส" [(ngModel)]="request.app_role_code">
+            </mat-form-field>
+    </div>
+    <div class="flex_row">
+        <mat-form-field appearance="outline" style="width: 50%;">
+            <mat-label>ชื่อภาษาไทย</mat-label>
+            <input matInput placeholder="ชื่อภาษาไทย" [(ngModel)]="request.app_role_name_th">
+        </mat-form-field>
+    </div>
+
+    <div class="flex_row">
+        <mat-form-field appearance="outline" style="width: 50%;">
+            <mat-label>ชื่อภาษาอังกฤษ</mat-label>
+            <input matInput placeholder="ชื่อภาษาอังกฤษ" [(ngModel)]="request.app_role_name_en" appTypeEngCharacter>
+        </mat-form-field>
+    </div>
+</ng-container>

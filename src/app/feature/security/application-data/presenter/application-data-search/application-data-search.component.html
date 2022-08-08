@@ -1,0 +1,18 @@
+<h1>Data</h1>
+<app-search-template [confirmNameButton]="'ค้นหา'" (onClickConfirmButton)="search()" (onClickCancleButton)="reset()">
+<ng-container content>
+    <div class="flex_row">
+        <mat-form-field appearance="outline" style="width: 50%;">
+            <mat-label>รหัส</mat-label>
+            <input matInput placeholder="รหัส" [(ngModel)]="request.code">
+        </mat-form-field>
+    </div>
+    <div class="flex_row">
+        <mat-form-field appearance="outline" style="width: 50%;">
+            <mat-label>ชื่อ</mat-label>
+            <input matInput placeholder="ชื่อ" [(ngModel)]="request.name">
+        </mat-form-field>
+    </div>
+</ng-container>
+</app-search-template>
+    

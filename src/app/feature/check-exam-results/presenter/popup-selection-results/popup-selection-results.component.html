@@ -1,0 +1,35 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <div class="flex_row_between">
+            <mat-radio-group aria-label="Select an option" style="width: 45%;" [(ngModel)]="check">
+                ประกาศผลสอบ
+                &nbsp;
+                <mat-radio-button [value]="true">ทันที</mat-radio-button>
+                &nbsp;
+                <mat-radio-button [value]="false">ระบุวัน</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline" style="width: 45%;">
+                <input matInput [disabled]="check" />
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-radio-group aria-label="Select an option" style="width: 40%;" >
+                รูปแบบการลงทะเบียน
+                &nbsp;
+                <mat-radio-button [value]="true">ลงทะเบียนออนไลน์</mat-radio-button>
+                &nbsp;
+                <mat-radio-button [value]="false">ลงทะเบียนที่คณะ</mat-radio-button>
+            </mat-radio-group>
+            <button style="width: 190px;" color="accent"
+            mat-raised-button>Select Drive</button>
+            <mat-form-field appearance="outline" style="width: 30%;">
+                <input matInput disabled />
+            </mat-form-field>
+        </div>
+<br>
+<div class="flex_row_end">
+    <button style="width: 190px;" color="accent"
+    mat-raised-button>ยืนยันผลการคัดเลือก</button>
+</div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,141 @@
+<!-- <div class="flex_row_between">
+    <div class="flex_col_between dashbroad_card" style="width: 20%;">        
+        <span class="font_weigth">จำนวนผู้สมัคร</span>
+        <div><font style="color: red;">{{ totalApply | number }}</font> &nbsp;&nbsp; รายการ</div>
+    </div>
+    <div class="flex_col_between dashbroad_card" style="width: 20%;">
+        <span class="font_weigth">ชำระค่าสมัครแล้ว</span>
+        <div><font style="color: red;">{{ payApply | number }}</font> &nbsp;&nbsp; รายการ</div>
+    </div>
+    <div class="flex_col_between dashbroad_card" style="width: 20%;">
+        <span class="font_weigth">ชำระค่าลงทะเบียน</span>
+        <div><font style="color: blue;">{{ payRegister | number }}</font> &nbsp;&nbsp; รายการ</div>
+        
+    </div>
+    <div class="flex_col_between dashbroad_card" style="width: 20%;">
+        <span class="font_weigth">ยังไม่ชำระค่าสมัคร</span>
+        <div><font style="color: green;">{{ notPayRegister | number }}</font> &nbsp;&nbsp; รายการ</div>
+    </div>
+</div> -->
+<br>
+<table mat-table [dataSource]="other" matSort class="mat-elevation-z2" style="width: 100%;">
+    <tr mat-header-row *matHeaderRowDef="['application_status_name_th','no_of_applications']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['application_status_name_th','no_of_applications']"></tr>
+    <ng-container matColumnDef="application_status_name_th">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สถานะอื่น ๆ</th>
+        <td mat-cell *matCellDef="let data; let index = index">
+            {{data.application_status_name_th}}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="no_of_applications">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>รายการ</th>
+        <td mat-cell *matCellDef="let data; let index = index">
+            {{data.no_of_applications}}
+        </td>
+    </ng-container>
+</table>
+<br>
+
+<div class="flex_row_between" style="align-items: stretch;">
+    <div class="flex_row" style="width: 45%;">
+        <div class="mat-elevation-z2" style="height: 400px;padding: 2rem">
+            <canvas id="barChart" width="500" height="400"></canvas>
+        </div>
+            
+    </div>
+    <br>
+    <div class="flex_row" style="width: 45%;">
+        <div class="mat-elevation-z2" style="padding: 2rem;height: 400px;width: 100%;">
+            <div class="flex_row_between">
+                <button (click)="prevPieChart()" [disabled]="this.selectProgrameDoughnut == 0"><</button>
+                <label for="">{{ this.applyProgrameDoughnut[this.selectProgrameDoughnut]?.name }}</label>
+                <button (click)="nextPieChart()" [disabled]="this.totalProgrameDoughnut == this.selectProgrameDoughnut">></button>
+            </div>
+            <canvas id="donutChart" width="400" height="800"></canvas>
+        </div>        
+      
+      
+    </div>
+</div>
+<br>
+<div class="flex_row_between" style="align-items: stretch;">
+    <div class="flex_col" style="width: 100%;">
+        <div class="mat-elevation-z2" style="padding: 2rem;height: 400px;">
+            <div class="flex_row_between">
+                <button (click)="prev()" [disabled]="this.selectProgramLineIndex == 0"><</button>
+                <label for="">{{ this.applyProgrameMonth[this.selectProgramLineIndex]?.name }}</label>
+                <button (click)="next()" [disabled]="this.totalProgrameMonth == this.selectProgramLineIndex">></button>
+            </div>
+            <canvas id="lineChart" width="400" height="400"></canvas>
+        </div>      
+             
+    </div>
+  
+</div>
+
+<!-- <br>
+<course-list [tableApplyCourse]="tableApplyCourse"></course-list>
+ิ<br>
+<program-list [tableApplyPrograme]="tableApplyPrograme"></program-list> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="flex_row_between">
+    <mat-card
+        style="width: 20%;height: 140px;display: grid;display: flex;flex-flow: column;justify-content: space-between;">
+        <p style="font-weight: bold;font-size: 20px;">รอตรวจสอบคุณสมบัติ</p>
+        <p style="justify-content: space-between;display: flex;"> <label
+                style="font-size: 40px;font-weight: bold;color: red;">254</label><label>รายการ</label> </p>
+    </mat-card>
+    <mat-card
+        style="width: 20%;height: 140px;display: grid;display: flex;flex-flow: column;justify-content: space-between;">
+        <p style="font-weight: bold;font-size: 20px;">รอเอกสารเพิ่มเติม</p>
+        <p style="justify-content: space-between;display: flex;"> <label
+                style="font-size: 40px;font-weight: bold;color: red;">254</label><label>รายการ</label> </p>
+    </mat-card>
+    <mat-card
+        style="width: 20%;height: 140px;display: grid;display: flex;flex-flow: column;justify-content: space-between;">
+        <p style="font-weight: bold;font-size: 20px;">รอชำระค่าสมัคร</p>
+        <p style="justify-content: space-between;display: flex;"> <label
+                style="font-size: 40px;font-weight: bold;color: #3391FB;">254</label><label>รายการ</label> </p>
+    </mat-card>
+    <mat-card
+        style="width: 20%;height: 140px;display: grid;display: flex;flex-flow: column;justify-content: space-between;">
+        <p style="font-weight: bold;font-size: 20px;">ผ่านการพิจารณา</p>
+        <p style="justify-content: space-between;display: flex;"> <label
+                style="font-size: 40px;font-weight: bold;color: #34CB66 ;">254</label><label>รายการ</label> </p>
+    </mat-card>
+
+
+
+</div>
+<br>
+
+<table mat-table [dataSource]="rows" matSort class="mat-elevation-z2" style="width: 100%;">
+    <tr mat-header-row *matHeaderRowDef="['0','1']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['0','1']"></tr>
+    <ng-container matColumnDef="0">
+        <th mat-header-cell *matHeaderCellDef>สถานะอื่น ๆ</th>
+        <td mat-cell *matCellDef="let data; let index = index">
+            {{index+1}}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="1">
+        <th mat-header-cell *matHeaderCellDef>รายการ</th>
+        <td mat-cell *matCellDef="let data; let index = index">
+            {{data.application_id}}
+        </td>
+    </ng-container>
+</table> -->
+

@@ -1,0 +1,46 @@
+<table  mat-table [dataSource]="plans?.education_plan_subjects" class="mat-elevation-z2" style="width: 100%;">
+    <tr style="background-color: rgba(239, 78, 145, 35%)" mat-header-row *matHeaderRowDef="col2"></tr>
+    <tr  mat-row *matRowDef="let myRowData; columns: col2"></tr>
+    <ng-container matColumnDef="subject_code">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">รหัสวิชา</th>
+        <td mat-cell *matCellDef="let data">{{ data.subject_code }}</td>
+    </ng-container>
+    <ng-container matColumnDef="lab_section">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">กลุ่มเรียน</th>
+        <td mat-cell *matCellDef="let data">{{ data.lab_section }}</td>
+    </ng-container>
+    <ng-container matColumnDef="year_subject_name_th">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">ชื่อวิชา</th>
+        <td mat-cell *matCellDef="let data">{{ data.year_subject_name_th }}</td>
+    </ng-container>
+    <ng-container matColumnDef="credit">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">ค่าหน่วยกิจ</th>
+        <td mat-cell *matCellDef="let data">{{ data.credit }}</td>
+    </ng-container>
+    <ng-container matColumnDef="lecture_credit_amount">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">ค่าปฏิบัติ</th>
+        <td mat-cell *matCellDef="let data">{{ data.lecture_credit_amount | number }}</td>
+    </ng-container>
+    <ng-container matColumnDef="total_lab_amount">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">ค่าปฏิบัติทั้งหมด</th>
+        <td mat-cell *matCellDef="let data">{{ data.total_lab_amount | number }}</td>
+    </ng-container>
+    <ng-container matColumnDef="total_lecture_amount">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">กลุ่มทฤษฎี</th>
+        <td mat-cell *matCellDef="let data">{{ data.total_lecture_amount | number }}</td>
+    </ng-container>
+    <ng-container matColumnDef="total_amount">
+        <th mat-header-cell *matHeaderCellDef  style="color: black;">จำนวนเงิน</th>
+        <td mat-cell *matCellDef="let data">{{ data.total_amount | number}}</td>
+    </ng-container>
+</table><br>
+<div class="flex_row_between container_result">    
+    <h1>รวมจำนวนเงินสุทธิที่ต้องชำระ</h1>
+    <h1 style="font-weight: bold;">{{ sum | number }}</h1>
+</div>
+<br>
+<div class="flex_row_end">
+    <button style="width: 190px;" color="accent" *ngIf="is_plan_register_pay_in_no == ''" mat-raised-button (click)="registerPlan()" > ลงทะเบียนเรียน </button>&nbsp;&nbsp;
+    <button style="width: 190px;" color="accent" *ngIf="is_plan_register_pay_in_no != ''" mat-raised-button (click)="payment()" > ชำระเงินออนไลด์ </button>&nbsp;&nbsp;
+    <button style="width: 190px;" color="accent" *ngIf="is_plan_register_pay_in_no != ''" mat-raised-button [routerLink]="['/recipe']"> พิมพ์ใบชำระเงิน </button>&nbsp;&nbsp;
+</div>

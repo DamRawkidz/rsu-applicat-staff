@@ -1,0 +1,3 @@
+<app-application-user-search (onSearch)="search($event)"></app-application-user-search>
+<br>
+<app-application-user-list [rows]="user$ | async" (onDelete)="remove($event)"></app-application-user-list>

@@ -1,0 +1,147 @@
+// .container_footer {
+//     display: flex;    
+//     align-items: flex-end;
+// }
+
+// .container_router {
+//     padding: 20px;
+//     flex: 1;
+// }
+// .example-container {
+//     position: absolute;
+//     // top: 2;
+//     // bottom: 0;
+//     left: 0;
+//     right: 0;
+//   }
+  
+//   .example-radio-group {
+//     display: block;
+//     border: 1px solid #555;
+//     margin: 20px;
+//     padding: 10px;
+//   }
+
+
+  
+  
+*:focus {
+  outline: 0;
+}
+
+a.active {
+  text-decoration: underline;
+}
+.mat-expansion-panel-header {
+  font-family: Sarabun;
+  font-size: 13px;
+  font-weight: 300;
+}
+.mat-expansion-panel-content {
+  font: 200 14px/20px Sarabun;
+  letter-spacing: normal;
+}
+
+.mat-expansion-panel-header {
+  background-color: var(--menu_color) !important;
+}
+
+.backgound_color_menu {
+  background-color: var(--menu_color);
+}
+
+.mat-expansion-panel-content {
+  background-color: var(--menu_color);
+}
+
+.list_menu {
+  list-style: none;
+  padding: 0;
+  & > div > li {
+      outline: none;
+      color: white;
+      padding: 10px;
+      padding-left: 10px;
+      margin-left: 50px;
+      cursor: pointer;
+      font-size: 12px;
+  }
+
+}
+
+.menu_item {
+  width: 80%;
+  // padding: 10px;
+  color: white;
+  background: #429bdf;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+
+
+
+.container_menu {
+  height: 100%;
+  background-color: var(--menu_color);
+}
+
+.username_text {
+  color: white;
+  font-size: 1.2rem;
+  line-height: 20px;
+}
+
+.email_text {
+  color: white;
+  font-size: 1.1rem;
+}
+
+.rsu_text {
+  color: #BDBDBD;
+  font-size: 3.5rem;
+}
+
+.logo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.information {
+  display: flex;
+  padding-top: 20px;
+  box-sizing: border-box;
+  align-items: center;
+  flex-flow: column;
+  height: 150px;
+  background-color: var(--menu_color);
+  position: relative;
+  justify-content: center;
+}
+
+.user_img {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  bottom: -50px;
+}
+
+.menu_bg {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  background-color: #3C414E;
+  height: 93px;
+  padding-left: 24px;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 38px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.panel_color {
+  background-color: var(--menu_color);
+}
+
+
+

@@ -1,0 +1,17 @@
+<h1>User</h1>
+<app-search-template [confirmNameButton]="'ค้นหา'" (onClickConfirmButton)="search()" (onClickCancleButton)="reset()">
+    <ng-container content>
+        <div class="flex_row_between">
+            <mat-form-field appearance="outline" style="width: 45%;">
+                <mat-label>ชื่อผู้ใช้งาน</mat-label>
+                <input matInput placeholder="ชื่อผู้ใช้งาน" [(ngModel)]="request.display_name">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" style="width: 45%;">
+                <mat-label>ชื่อ</mat-label>
+                <input matInput [(ngModel)]="request.login_name" placeholder="ชื่อ Login" >
+            </mat-form-field>
+    
+        </div>
+    </ng-container>
+</app-search-template>

@@ -1,0 +1,123 @@
+<h1 class="container_form" (click)="back()">
+  Role
+</h1>
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-content>
+        <div class="flex_row_between">
+          <mat-form-field appearance="outline" style="width: 33%;">
+            <mat-label>รหัส</mat-label>
+            <input matInput placeholder="รหัส" formControlName="app_role_code">
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 33%;">
+            <mat-label>ชื่อภาษาอังกฤษ</mat-label>
+            <input matInput placeholder="ชื่อภาษาอังกฤษ" formControlName="app_role_name_en" appTypeEngCharacter>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 33%;">
+            <mat-label>ชื่อภาษาไทย</mat-label>
+            <input matInput placeholder="รหัส" formControlName="app_role_name_th">
+          </mat-form-field>
+        </div>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <mat-card>
+    <mat-card-content>
+      <button mat-raised-button color="accent" (click)="add()">เพิ่มสิทธ์</button>    
+      <br>
+      <br>
+      <ng-container formArrayName="app_securities">
+        <ng-container *ngFor="let item of form['controls']['app_securities']['controls'];let index = index" [formGroupName]="index">
+          <div class="flex_row">
+            <mat-form-field appearance="outline" style="width: 30%;">
+              <mat-label>เมนู/ฟังก์ชั่น</mat-label>
+              <mat-select formControlName="app_object_id">
+                <mat-option *ngFor="let item of object" [value]="item.app_object_id">
+                  {{item.app_object_name_th}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;
+            <mat-form-field appearance="outline" style="width: 30%;">
+              <mat-label>สิทธ์</mat-label>
+              <mat-select formControlName="app_object_id">
+                <mat-option *ngFor="let item of permission" [value]="item.app_permission_id">
+                  {{item.app_permission_name_th}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-checkbox formControlName="restrict_user">แสดงเฉพาะข้อมูลหน่วยงานตัวเองเท่านั้น</mat-checkbox>             -->
+            &nbsp;&nbsp;&nbsp;
+            <div>
+              <button mat-icon-button color="accent" (click)="add()"><mat-icon>add</mat-icon></button>
+              <button mat-icon-button color="accent" (click)="remove(index)"><mat-icon>clear</mat-icon></button>
+            </div>
+          </div>
+
+            <!-- <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="5e7f528acc592" > แสดงเฉพาะข้อมูลหน่วยงานตัวเองเท่านั้น </label>
+                  <div class="input-group">
+                        <input type="checkbox" formControlName="restrict_user">
+                  </div>
+                </div>
+              </div>
+            </div> -->
+        </ng-container>          
+      </ng-container>
+    </mat-card-content>
+    <mat-card-actions [align]="'end'">
+      <button mat-raised-button color="accent" (click)="onSave()">บันทึก</button>
+      <button mat-raised-button color="accent" (click)="onBack()">ยกเลิก</button>
+    </mat-card-actions>
+  </mat-card>
+
+    <div class="wrapper">                    
+        <!-- <div class="title">
+          <div class="line"></div>
+          เพิ่มข้อมูล
+        </div>
+          <button #saveBtn type="submit" class="btn btn-info"  (click)="addDataForm()">
+            <b>เพิ่มข้อมูล</b>
+          </button> -->
+        <!-- </div>   -->
+        <!-- <ng-container formArrayName="app_datas">
+          <ng-container *ngFor="let item of form['controls']['app_datas']['controls'];let index = index" [formGroupName]="index">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="5e7f528acc592" > หน่วยงาน </label>
+                    <div class="input-group">
+                      <app-select-dropdown  
+                            formControlName="ref_data_id"
+                            [datas]="departments"
+                            [displayKey]="'department_name'"
+                            [valueKey]="'id'"
+                           >
+                      </app-select-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div  class="col-md-3">
+                  <div  class="form-group">
+                    <label  for="5e7f528acc592">&nbsp;</label>
+                    <br >
+                    <button  class="btn btn-warning btn-sm" style="margin-right: 5px;" (click)="addDataForm()">
+                      <i  class="fa fa-plus"></i>
+                    </button>
+                    <button  class="btn btn-danger btn-sm" (click)="removeDataForm(index)">
+                      <i  class="fa fa-trash-o"></i></button>
+                    </div>
+                  </div>
+              </div>
+          </ng-container>          
+        </ng-container> -->
+      
+  
+    </div>
+  
+    <pre *ngIf="!isProduction"> {{ form.getRawValue() | json }} </pre>
+  </form>
+  
+  

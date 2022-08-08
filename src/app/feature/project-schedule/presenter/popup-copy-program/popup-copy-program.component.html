@@ -1,0 +1,377 @@
+<h1 mat-dialog-title class="text-danger" rtl> คัดลอกโครงการ</h1>
+<div mat-dialog-content rtl style="width: 50em;">
+<!-- <pre>{{programCopySave|json}}</pre> -->
+
+<form [formGroup]="form">
+<mat-tab-group> 
+    <mat-tab label="โครงการ">
+
+        <mat-card class="mat-elevation-z4">
+            <mat-card-content>
+                <mat-card-title>โครงการ</mat-card-title>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label>ปีการศึกษา</mat-label>
+                        <mat-select (valueChange)="changeYear($event)" formControlName="academic_year_id">
+                            <mat-option *ngFor="let year of academicYearData"
+                                [value]="year.academic_year_id">
+                                {{year.academic_year_name_th}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label>ภาคเรียน</mat-label>
+                        <mat-select formControlName="academic_semester_id">
+                            <mat-option *ngFor="let data of academicSemesterData"
+                                [value]="data.academic_semester_id">
+                                {{data.semester_name_th}}
+                            </mat-option>
+                            <mat-option *ngIf="academicSemesterData.length == 0">
+                                ไม่มีภาคเรียนของปีการศึกษานี้
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label>ประเภทการศึกษา</mat-label>
+                        <mat-select formControlName="education_type_id">
+                            <mat-option *ngFor="let data of educationTypesData"
+                                [value]="data.education_type_id">
+                                {{data.education_type_name_th}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label>จำนวนหลักสูตรที่สมัครได้</mat-label>
+                        <input formControlName="maximum_apply_course" disabled
+                            type="number" matInput />
+                    </mat-form-field>
+                </div>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label> รหัสโครงการ </mat-label>
+                        <input formControlName="program_code" matInput numberCharacter />
+                    </mat-form-field>
+                    <mat-checkbox class="example-margin">สมัครได้ครั้งเดียว</mat-checkbox>
+                </div>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                        <mat-label> ชื่อโครงการ </mat-label>
+                        <input formControlName="program_name_th" matInput />
+                    </mat-form-field>
+                </div>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                        <mat-label> ชื่อโครงการ (ภาษาอังกฤษ)</mat-label>
+                        <input formControlName="program_name_en" matInput appTypeEngCharacter />
+                    </mat-form-field>
+                </div>
+                <div class="flex_row">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                        <mat-label>สถานะ</mat-label>
+                        <mat-select formControlName="status_id">
+                            <mat-option *ngFor="let data of statusData" [value]="data.status_id">
+                                {{data.status_name_th}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex_row_between">
+                    <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                        <mat-label>รายละเอียด</mat-label>
+                        <textarea formControlName="program_detail_th" matInput></textarea>
+                    </mat-form-field>
+                </div>
+                <!-- <ng-container *ngIf="form.get('program_id').value != null">
+                <div class="flex_row">
+                    <div  class="paddingInput">
+                        <qrcode [qrdata]="value" [width]="20" [errorCorrectionLevel]="'M'"></qrcode>
+                    </div>
+                </div>
+                <div class="flex_row">
+                    <div style="width: 70%;" class="paddingInput">
+                        <mat-label>QR Code สำหรับสมัครเรียน</mat-label>
+                    </div>
+                </div>
+            </ng-container> -->
+            </mat-card-content>
+        </mat-card>
+
+
+
+    </mat-tab>
+    <mat-tab label="กำหนดค่าสมัครสอบ">
+        <mat-card class="mat-elevation-z4">
+            <mat-card-content>
+                <div class="flex_row_between">
+
+                    <mat-card-title>รอบที่เปิดรับสมัคร</mat-card-title>
+                </div>
+                <br *ngIf="form['controls']['schedules']['controls'].length != 0">
+
+                <ng-container formArrayName="schedules">
+                    <ng-container
+                        *ngFor="let schedules of form['controls']['schedules']['controls'];let schedulesIndex = index"
+                        [formGroupName]="schedulesIndex">
+                        <mat-card class="mat-elevation-z4">
+                            <mat-card-content>
+                                <ng-container>
+                                    <ng-container>
+                                        <div class="flex_row_between">
+
+                                            <mat-card-title>รอบที่&nbsp;{{schedulesIndex+1}}
+                                            </mat-card-title>
+                                        </div>
+                                        <div class="flex_row">
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> รหัสรอบที่เปิดรับสมัคร </mat-label>
+                                                <input disabled formControlName="program_schedule_code" numberCharacter
+                                                    matInput />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> ชื่อรอบที่เปิดรับสมัคร </mat-label>
+                                                <input formControlName="program_schedule_name_th"
+                                                    matInput />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex_row">
+
+                                            <div class="md-form md-outline paddingInput"
+                                                style="width: 40%;">
+                                                <mat-form-field appearance="outline"
+                                                    class="paddingInput" style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาเปิดรับสมัคร
+                                                    </mat-label>
+                                                    <input matInput formControlName="start_time"
+                                                        type="time" id="default-picker"
+                                                        placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="md-form md-outline paddingInput"
+                                                style="width: 40%;">
+                                                <mat-form-field appearance="outline"
+                                                    class="paddingInput" style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาปิดรับสมัคร
+                                                    </mat-label>
+                                                    <input matInput formControlName="end_time"
+                                                        type="time" id="default-picker"
+                                                        placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="flex_row">
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่เริ่มต้น </mat-label>
+                                                <input matInput
+                                                (dateChange)="dateChange(schedules,$event.value,'apply_start_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'apply_start_date')"
+                                                formControlName="apply_start_date"
+                                                [max]="schedules.get('apply_end_date').value"
+                                                readonly
+                                                    matInput (click)="datepickerstart.open()"
+                                                    [matDatepicker]="datepickerstart" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="datepickerstart">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerstart></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่สิ้นสุด </mat-label>
+                                                <input matInput formControlName="apply_end_date"
+                                                [min]="schedules.get('apply_start_date').value"
+                                                readonly
+                                                (dateChange)="dateChange(schedules,$event.value,'apply_end_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'apply_end_date')"
+                                                    matInput (click)="datepickerend.open()"
+                                                    [matDatepicker]="datepickerend" />
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerend">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerend></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex_row">
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่เริ่มต้นสอบข้อเขียน </mat-label>
+                                                <input matInput
+                                                    formControlName="written_exam_start_date" 
+                                                    [max]="schedules.get('written_exam_end_date').value"
+                                                    readonly
+                                                    (dateChange)="dateChange(schedules,$event.value,'written_exam_start_date')"
+                                                    (selectedValueChange)="dateChange(schedules,$event,'written_exam_start_date')"
+                                                    (click)="datepickerstart1.open()"
+                                                    [matDatepicker]="datepickerstart1" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="datepickerstart1">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerstart1></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่สิ้นสุดสอบข้อเขียน </mat-label>
+                                                <input matInput formControlName="written_exam_end_date"
+                                                readonly
+                                                [min]="schedules.get('written_exam_start_date').value"
+                                                (dateChange)="dateChange(schedules,$event.value,'written_exam_end_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'written_exam_end_date')"
+                                                    matInput (click)="datepickerend1.open()"
+                                                    [matDatepicker]="datepickerend1" />
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerend1">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerend1></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex_row">
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่เริ่มต้นสอบสัมภาษณ์ </mat-label>
+                                                <input matInput
+                                                    formControlName="interview_exam_start_date"
+                                                    readonly
+                                                    [max]="schedules.get('interview_exam_end_date').value"
+                                                    (dateChange)="dateChange(schedules,$event.value,'interview_exam_start_date')"
+                                                    (selectedValueChange)="dateChange(schedules,$event,'interview_exam_start_date')"
+                                                    matInput
+                                                    (click)="datepickerstart2.open()"
+                                                    [matDatepicker]="datepickerstart2" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="datepickerstart2">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerstart2></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่สิ้นสุดสอบสัมภาษณ์ </mat-label>
+                                                <input matInput
+                                                [min]="schedules.get('interview_exam_start_date').value"
+                                                readonly
+                                                (dateChange)="dateChange(schedules,$event.value,'interview_exam_end_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'interview_exam_end_date')"
+                                                    formControlName="interview_exam_end_date" matInput
+                                                    (click)="datepickerend2.open()"
+                                                    [matDatepicker]="datepickerend2" />
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerend2">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerend2></mat-datepicker>
+                                            </mat-form-field>
+
+                                        </div>
+                                        <div class="flex_row">
+
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่เริ่มต้นลงทะเบียน </mat-label>
+                                                <input matInput formControlName="enrollment_start_date"
+                                                readonly
+                                                [max]="schedules.get('enrollment_end_date').value"
+                                                (dateChange)="dateChange(schedules,$event.value,'enrollment_start_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'enrollment_start_date')"
+                                                    matInput (click)="datepickerstart3.open()"
+                                                    [matDatepicker]="datepickerstart3" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="datepickerstart3">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerstart3></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่สิ้นสุดลงทะเบียน </mat-label>
+                                                <input matInput formControlName="enrollment_end_date"
+                                                readonly
+                                                [min]="schedules.get('enrollment_start_date').value"
+                                                (dateChange)="dateChange(schedules,$event.value,'enrollment_end_date')"
+                                                (selectedValueChange)="dateChange(schedules,$event,'enrollment_end_date')"
+                                                    matInput (click)="datepickerend3.open()"
+                                                    [matDatepicker]="datepickerend3" />
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerend3">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerend3></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex_row">
+
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่ประกาศผลสอบข้อเขียน </mat-label>
+                                                <input matInput 
+                                                    matInput (click)="written_exam_announcement_date.open()"
+                                                    readonly
+                                                    formControlName="written_exam_announcement_date"
+                                                    (dateChange)="dateChange(schedules,$event.value,'written_exam_announcement_date')"
+                                                    (selectedValueChange)="dateChange(schedules,$event,'written_exam_announcement_date')"
+                                                    [matDatepicker]="written_exam_announcement_date" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="written_exam_announcement_date">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #written_exam_announcement_date></mat-datepicker>
+                                            </mat-form-field>
+                                            <div class="md-form md-outline paddingInput"
+                                                style="width: 40%;">
+                                                <mat-form-field appearance="outline"
+                                                    class="paddingInput" style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาที่ประกาศผลสอบข้อเขียน
+                                                    </mat-label>
+                                                    <input matInput 
+                                                    formControlName="written_exam_announcement_time"
+                                                        type="time" id="default-picker"
+                                                        placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="flex_row">
+
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> วันที่ประกาศผลสอบสัมภาษณ์ </mat-label>
+                                                <input matInput 
+                                                    matInput (click)="interview_exam_announcement_date.open()"
+                                                    readonly
+                                                    formControlName="interview_exam_announcement_date"
+                                                    (dateChange)="dateChange(schedules,$event.value,'interview_exam_announcement_date')"
+                                                    (selectedValueChange)="dateChange(schedules,$event,'interview_exam_announcement_date')"
+                                                    [matDatepicker]="interview_exam_announcement_date" />
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="interview_exam_announcement_date">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #interview_exam_announcement_date></mat-datepicker>
+                                            </mat-form-field>
+                                            <div class="md-form md-outline paddingInput"
+                                                style="width: 40%;">
+                                                <mat-form-field appearance="outline"
+                                                    class="paddingInput" style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาที่ประกาศผลสอบสัมภาษณ์
+                                                    </mat-label>
+                                                    <input matInput 
+                                                    formControlName="interview_exam_announcement_time"
+                                                        type="time" id="default-picker"
+                                                        placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </mat-card-content>
+                        </mat-card>
+                        <br>
+                    </ng-container>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>
+
+<div class="flex_row_end">
+    <button style="width: 190px;" (click)="save()" [disabled]="form.invalid" color="accent"
+        mat-raised-button>บันทึกโครงการ</button>&nbsp;&nbsp;
+    <button mat-raised-button style="width: 190px;" (click)="closeDialog()" mat-raised-button>ยกเลิก</button>
+    <!-- <button mat-raised-button style="width: 190px;" (click)="openPopUpWriting()" mat-raised-button>aaa</button> -->
+</div>
+</form>
+
+<!-- <pre> {{programCopySave | json}} </pre> -->
+</div>

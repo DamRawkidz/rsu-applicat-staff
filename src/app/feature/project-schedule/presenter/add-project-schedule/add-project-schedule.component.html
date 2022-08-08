@@ -1,0 +1,1022 @@
+<form [formGroup]="form">
+    <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+            <mat-tab-group>
+                <mat-tab label="โครงการ">
+
+                    <mat-card class="mat-elevation-z4">
+                        <mat-card-content>
+                            <mat-card-title>โครงการ</mat-card-title>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label>ปีการศึกษา</mat-label>
+                                    <mat-select (valueChange)="changeYear($event)" formControlName="academic_year_uid">
+                                        <mat-option *ngFor="let year of academicYearData"
+                                            [value]="year.academic_year_uid">
+                                            {{year.academic_year_name_th}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label>ภาคเรียน</mat-label>
+                                    <mat-select formControlName="academic_semester_uid">
+                                        <mat-option *ngFor="let data of academicSemesterData"
+                                            [value]="data.academic_semester_uid">
+                                            {{data.semester_name_th}}
+                                        </mat-option>
+                                        <mat-option *ngIf="academicSemesterData.length == 0">
+                                            ไม่มีภาคเรียนของปีการศึกษานี้
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label>ประเภทการศึกษา</mat-label>
+                                    <mat-select formControlName="education_type_uid">
+                                        <mat-option *ngFor="let data of educationTypesData"
+                                            [value]="data.education_type_uid">
+                                            {{data.education_type_name_th}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label>จำนวนหลักสูตรที่สมัครได้</mat-label>
+                                    <input formControlName="maximum_apply_course"
+                                        [disabled]="form.get('one_time_apply').value" (input)="add_apply_course()"
+                                        type="number" matInput />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label> รหัสโครงการ </mat-label>
+                                    <input formControlName="program_code" matInput numberCharacter />
+                                </mat-form-field>
+                                <mat-checkbox (change)="changeOnePrice($event)" formControlName="one_time_apply"
+                                    class="example-margin">สมัครได้ครั้งเดียว</mat-checkbox>
+                            </div>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                                    <mat-label> ชื่อโครงการ </mat-label>
+                                    <input formControlName="program_name_th" matInput />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                                    <mat-label> ชื่อโครงการ (ภาษาอังกฤษ)</mat-label>
+                                    <input formControlName="program_name_en" appTypeEngCharacter matInput />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                                    <mat-label>สถานะ</mat-label>
+                                    <mat-select formControlName="status_id">
+                                        <mat-option *ngFor="let data of statusData" [value]="data.status_id">
+                                            {{data.status_name_th}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="flex_row_between">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 100%;">
+                                    <mat-label>รายละเอียด</mat-label>
+                                    <textarea formControlName="program_detail_th" matInput></textarea>
+                                </mat-form-field>
+                            </div> -->
+                            <div>
+                                <editor style="height: 500px;"  
+                                [init]="{
+                                    height: 500,
+                                    plugins: [
+                                      'advlist autolink lists link image charmap print',
+                                      'preview anchor searchreplace visualblocks code',
+                                      'fullscreen insertdatetime media table paste',
+                                      'help wordcount'
+                                    ],
+                                    toolbar:
+                                      'undo redo | formatselect | bold italic | \
+                                      alignleft aligncenter alignright alignjustify | \
+                                      bullist numlist outdent indent | help'
+                                  }"
+                                  apiKey="rhgcaqu555pe38kxwbv770ppru9jek66edhkjvgv6py5lswh"
+                                formControlName="program_detail_th"></editor>
+                                </div>
+                            <!-- <ng-container *ngIf="form.get('program_id').value != null">
+                            <div class="flex_row">
+                                <div  class="paddingInput">
+                                    <qrcode [qrdata]="value" [width]="20" [errorCorrectionLevel]="'M'"></qrcode>
+                                </div>
+                            </div>
+                            <div class="flex_row">
+                                <div style="width: 70%;" class="paddingInput">
+                                    <mat-label>QR Code สำหรับสมัครเรียน</mat-label>
+                                </div>
+                            </div>
+                        </ng-container> -->
+                        </mat-card-content>
+                    </mat-card>
+
+
+
+                </mat-tab>
+
+                <mat-tab label="กำหนดค่าสมัครสอบ">
+                    <div style="padding:10px">
+                        <mat-card class="mat-elevation-z4">
+                            <mat-card-content>
+
+                                <mat-card-title>กำหนดค่าสมัครสอบ</mat-card-title>
+
+
+                                <ng-container formArrayName="applyPrices">
+                                    <ng-container
+                                        *ngFor="let applyPrices of form['controls']['applyPrices']['controls'];let applyPricesIndex = index"
+                                        [formGroupName]="applyPricesIndex">
+                                        <div class="flex_row">
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 10%;">
+                                                <mat-label> จำนวนหลักสูตร </mat-label>
+                                                <input formControlName="course_order_no" readonly type="number"
+                                                    matInput />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 40%;">
+                                                <mat-label> ราคา </mat-label>
+                                                <input formControlName="price" (input)="inputPrice(applyPrices)"
+                                                    type="number" matInput />
+                                            </mat-form-field>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </mat-card-content>
+                        </mat-card>
+                        <br>
+                        <mat-card class="mat-elevation-z4">
+                            <mat-card-content>
+                                <div class="flex_row_between">
+
+                                    <mat-card-title>รอบที่เปิดรับสมัคร</mat-card-title>
+
+                                    <!-- <button mat-icon-button color="accent" (click)="addschedulesForm()">
+                                        <mat-icon> <span class="material-icons" color="accent">
+                                                add
+                                            </span></mat-icon>
+                                    </button> -->
+                                </div>
+                                <br *ngIf="form['controls']['schedules']['controls'].length != 0">
+
+                                <ng-container formArrayName="schedules">
+                                    <ng-container
+                                        *ngFor="let schedules of form['controls']['schedules']['controls'];let schedulesIndex = index"
+                                        [formGroupName]="schedulesIndex">
+                                        <!-- <mat-card style="border-radius:0px;box-shadow:none"> -->
+                                        <!-- <mat-card-content> -->
+                                        <mat-card class="mat-elevation-z4">
+                                            <mat-card-content>
+                                                <ng-container>
+                                                    <ng-container>
+                                                        <div class="flex_row_between">
+
+                                                            <mat-card-title>รอบที่&nbsp;{{schedulesIndex+1}}
+                                                            </mat-card-title>
+
+                                                            <!-- <button mat-icon-button color="accent"
+                                                                (click)="delschedulesForm(schedulesIndex)"
+                                                                aria-label="Example icon button with a home icon">
+                                                                <mat-icon> clear </mat-icon>
+                                                            </button> -->
+                                                        </div>
+                                                        <div class="flex_row">
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> รหัสรอบที่เปิดรับสมัคร </mat-label>
+                                                                <input disabled formControlName="program_schedule_code"
+                                                                    numberCharacter matInput />
+                                                            </mat-form-field>
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> ชื่อรอบที่เปิดรับสมัคร </mat-label>
+                                                                <input formControlName="program_schedule_name_th"
+                                                                    matInput />
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <!-- <div class="flex_row">
+                                                            <mat-form-field appearance="outline">
+                                                                <input matInput readonly
+                                                                type="time"
+                                                                    [ngxTimepicker]="startTimePicker"
+                                                                    [format]="24">
+                                                                <button mat-button *ngIf="startTime" matSuffix
+                                                                    mat-icon-button aria-label="Clear"
+                                                                    (click)="startTime=null">
+                                                                    <mat-icon>close</mat-icon>
+                                                                </button>
+                                                            </mat-form-field>
+                                                            <ngx-material-timepicker #startTimePicker
+                                                                (timeSet)="time($event)"></ngx-material-timepicker>
+
+                                                        </div> -->
+                                                        <div class="flex_row">
+
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 20%;">
+                                                                <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 100%;">
+                                                                <mat-label> วันที่เริ่มต้น </mat-label>
+                                                                <input matInput
+                                                                    (dateChange)="dateChange(schedules,$event.value,'apply_start_date')"
+                                                                    readonly
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'apply_start_date')"
+                                                                    formControlName="apply_start_date"
+                                                                    [max]="schedules.get('apply_end_date').value"
+                                                                    matInput (click)="datepickerstart.open()"
+                                                                    [matDatepicker]="datepickerstart" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="datepickerstart">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerstart></mat-datepicker>
+                                                            </mat-form-field>
+                                                            </div>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 20%;">
+                                                                <mat-form-field appearance="outline"
+                                                                    class="paddingInput" style="width: 100%;">
+                                                                    <mat-label for="default-picker"> เวลาเปิดรับสมัคร
+                                                                    </mat-label>
+                                                                    <input matInput formControlName="start_time"
+                                                                        type="time" id="default-picker"
+                                                                        placeholder="Select time" />
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 5%;"></div>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 20%;">
+                                                                <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 100%;">
+                                                                <mat-label> วันที่สิ้นสุด </mat-label>
+                                                                <input matInput formControlName="apply_end_date"
+                                                                    readonly
+                                                                    [min]="schedules.get('apply_start_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'apply_end_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'apply_end_date')"
+                                                                    matInput (click)="datepickerend.open()"
+                                                                    [matDatepicker]="datepickerend" />
+                                                                <mat-datepicker-toggle matSuffix [for]="datepickerend">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerend></mat-datepicker>
+                                                            </mat-form-field>
+                                                            </div>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 20%;">
+                                                                <mat-form-field appearance="outline"
+                                                                    class="paddingInput" style="width: 100%;">
+                                                                    <mat-label for="default-picker"> เวลาปิดรับสมัคร
+                                                                    </mat-label>
+                                                                    <input matInput formControlName="end_time"
+                                                                        type="time" id="default-picker"
+                                                                        placeholder="Select time" />
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="flex_row">
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่เริ่มต้นสอบข้อเขียน </mat-label>
+                                                                <input matInput
+                                                                    formControlName="written_exam_start_date" readonly
+                                                                    [min]="schedules.get('apply_start_date').value"
+                                                                    [max]="schedules.get('written_exam_end_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'written_exam_start_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'written_exam_start_date')"
+                                                                    (click)="datepickerstart1.open()"
+                                                                    [matDatepicker]="datepickerstart1" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="datepickerstart1">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerstart1></mat-datepicker>
+                                                            </mat-form-field>
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่สิ้นสุดสอบข้อเขียน </mat-label>
+                                                                <input matInput formControlName="written_exam_end_date"
+                                                                    readonly
+                                                                    [min]="schedules.get('written_exam_start_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'written_exam_end_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'written_exam_end_date')"
+                                                                    matInput (click)="datepickerend1.open()"
+                                                                    [matDatepicker]="datepickerend1" />
+                                                                <mat-datepicker-toggle matSuffix [for]="datepickerend1">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerend1></mat-datepicker>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="flex_row">
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่เริ่มต้นสอบสัมภาษณ์ </mat-label>
+                                                                <input matInput
+                                                                    formControlName="interview_exam_start_date"
+                                                                    [min]="schedules.get('apply_start_date').value"
+                                                                    [max]="schedules.get('interview_exam_end_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'interview_exam_start_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'interview_exam_start_date')"
+                                                                    matInput readonly (click)="datepickerstart2.open()"
+                                                                    [matDatepicker]="datepickerstart2" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="datepickerstart2">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerstart2></mat-datepicker>
+                                                            </mat-form-field>
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่สิ้นสุดสอบสัมภาษณ์ </mat-label>
+                                                                <input matInput
+                                                                    [min]="schedules.get('interview_exam_start_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'interview_exam_end_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'interview_exam_end_date')"
+                                                                    formControlName="interview_exam_end_date" matInput
+                                                                    (click)="datepickerend2.open()" readonly
+                                                                    [matDatepicker]="datepickerend2" />
+                                                                <mat-datepicker-toggle matSuffix [for]="datepickerend2">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerend2></mat-datepicker>
+                                                            </mat-form-field>
+
+                                                        </div>
+                                                        <div class="flex_row">
+
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่เริ่มต้นลงทะเบียน </mat-label>
+                                                                <input matInput formControlName="enrollment_start_date"
+                                                                [min]="schedules.get('apply_start_date').value"
+                                                                    [max]="schedules.get('enrollment_end_date').value"
+                                                                    readonly
+                                                                    (dateChange)="dateChange(schedules,$event.value,'enrollment_start_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'enrollment_start_date')"
+                                                                    matInput (click)="datepickerstart3.open()"
+                                                                    [matDatepicker]="datepickerstart3" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="datepickerstart3">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerstart3></mat-datepicker>
+                                                            </mat-form-field>
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่สิ้นสุดลงทะเบียน </mat-label>
+                                                                <input matInput formControlName="enrollment_end_date"
+                                                                    readonly
+                                                                    [min]="schedules.get('enrollment_start_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'enrollment_end_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'enrollment_end_date')"
+                                                                    matInput (click)="datepickerend3.open()"
+                                                                    [matDatepicker]="datepickerend3" />
+                                                                <mat-datepicker-toggle matSuffix [for]="datepickerend3">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #datepickerend3></mat-datepicker>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="flex_row">
+
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่ประกาศผลสอบข้อเขียน </mat-label>
+                                                                <input matInput matInput
+                                                                    (click)="written_exam_announcement_date.open()"
+                                                                    readonly
+                                                                    formControlName="written_exam_announcement_date"
+                                                                    [min]="schedules.get('apply_start_date').value"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'written_exam_announcement_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'written_exam_announcement_date')"
+                                                                    [matDatepicker]="written_exam_announcement_date" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="written_exam_announcement_date">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #written_exam_announcement_date>
+                                                                </mat-datepicker>
+                                                            </mat-form-field>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-form-field appearance="outline"
+                                                                    class="paddingInput" style="width: 100%;">
+                                                                    <mat-label for="default-picker">
+                                                                        เวลาที่ประกาศผลสอบข้อเขียน
+                                                                    </mat-label>
+                                                                    <input matInput
+                                                                        formControlName="written_exam_announcement_time"
+                                                                        type="time" id="default-picker"
+                                                                        placeholder="Select time" />
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex_row">
+
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label> วันที่ประกาศผลสอบสัมภาษณ์ </mat-label>
+                                                                <input matInput matInput
+                                                                    (click)="interview_exam_announcement_date.open()"
+                                                                    readonly
+                                                                    [min]="schedules.get('apply_start_date').value"
+                                                                    formControlName="interview_exam_announcement_date"
+                                                                    (dateChange)="dateChange(schedules,$event.value,'interview_exam_announcement_date')"
+                                                                    (selectedValueChange)="dateChange(schedules,$event,'interview_exam_announcement_date')"
+                                                                    [matDatepicker]="interview_exam_announcement_date" />
+                                                                <mat-datepicker-toggle matSuffix
+                                                                    [for]="interview_exam_announcement_date">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #interview_exam_announcement_date>
+                                                                </mat-datepicker>
+                                                            </mat-form-field>
+                                                            <div class="md-form md-outline paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-form-field appearance="outline"
+                                                                    class="paddingInput" style="width: 100%;">
+                                                                    <mat-label for="default-picker">
+                                                                        เวลาที่ประกาศผลสอบสัมภาษณ์
+                                                                    </mat-label>
+                                                                    <input matInput
+                                                                        formControlName="interview_exam_announcement_time"
+                                                                        type="time" id="default-picker"
+                                                                        placeholder="Select time" />
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="flex_row">
+                                                            <div style="width: 40%;">
+                                                                <mat-checkbox #subject>มีสอบ</mat-checkbox>
+                                                            </div>
+                                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                                style="width: 40%;">
+                                                                <mat-label>วิชาสอบ</mat-label>
+                                                                <mat-select>
+                                                                    <mat-option *ngFor="let data of statusData"
+                                                                        [value]="data.status_id">
+                                                                        {{data.status_name_th}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </div> -->
+
+
+                                                        <!-- <br>
+                            <div class="flex_row_between">
+                                <mat-card-header>
+                                    <mat-card-title>เลือกห้องสอบ</mat-card-title>
+                                </mat-card-header>
+                                <button mat-icon-button color="accent" (click)="addwrittenExamRoomsForm(schedules)">
+                                    <mat-icon> <span class="material-icons" color="accent">
+                                            add
+                                        </span></mat-icon>
+                                </button>
+                            </div>
+                            <br>
+                            <ng-container formArrayName="writtenExamRooms">
+                                <ng-container
+                                    *ngFor="let writtenExamRooms of schedules['controls']['writtenExamRooms']['controls'];let writtenExamRoomsIndex = index"
+                                    [formGroupName]="writtenExamRoomsIndex">
+                                    <div class="flex_row_between">
+                                        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+                                            <mat-label>ห้องสอบ อาคาร</mat-label>
+                                            <mat-select #building >
+                                                <mat-option (click)="getRooms(building.value)" *ngFor="let year of buildingData" [value]="year.building_code">
+                                                    {{year.building_name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+                                            <mat-label>ห้อง</mat-label>
+                                            <mat-select formControlName="room_no">
+                                                <mat-option *ngFor="let data of roomsData" [value]="data.room_no">
+                                                    {{data.room_no}}-{{data.room_name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="paddingInput" style="width: 25%;">
+                                            <mat-label> จำนวน </mat-label>
+                                            <input type="number" formControlName="used_seats" matInput />
+                                        </mat-form-field>
+                                        <button mat-icon-button color="accent" (click)="delwrittenExamRoomsForm(schedules,schedulesIndex)"
+                                        aria-label="Example icon button with a home icon">
+                                        <mat-icon> clear </mat-icon>
+                                    </button>
+                                    </div>
+                                   
+                                </ng-container>
+                            </ng-container> -->
+                                                    </ng-container>
+                                                </ng-container>
+                                            </mat-card-content>
+                                        </mat-card>
+                                        <br>
+                                        <mat-card class="mat-elevation-z4">
+                                            <mat-card-content>
+                                                <ng-container>
+                                                    <ng-container>
+                                                        <div class="flex_row_between">
+
+                                                            <mat-card-title>เลือกห้องสอบ</mat-card-title>
+
+                                                            <button mat-icon-button color="accent"
+                                                                (click)="addwrittenExamRoomsForm(schedules)">
+                                                                <mat-icon> <span class="material-icons" color="accent">
+                                                                        add
+                                                                    </span></mat-icon>
+                                                            </button>
+                                                        </div>
+                                                        <ng-container formArrayName="writtenExamRooms">
+                                                            <ng-container
+                                                                *ngFor="let writtenExamRooms of schedules['controls']['writtenExamRooms']['controls'];let writtenExamRoomsIndex = index"
+                                                                [formGroupName]="writtenExamRoomsIndex">
+                                                                <div class="flex_row_between">
+                                                                    <div style="width: 10%;">
+                                                                        {{writtenExamRoomsIndex+1}}
+                                                                    </div>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="paddingInput" style="width: 25%;">
+                                                                        <mat-label>ห้องสอบ อาคาร</mat-label>
+                                                                        <mat-select #building
+                                                                            formControlName="building_code">
+                                                                            <mat-option
+                                                                                (click)="getRooms(building.value)"
+                                                                                *ngFor="let year of buildingData"
+                                                                                [value]="year.building_code">
+                                                                                {{year.building_name}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="paddingInput" style="width: 25%;">
+                                                                        <mat-label>ห้อง</mat-label>
+                                                                        <mat-select formControlName="room_no">
+                                                                            <mat-option *ngFor="let data of roomsData"
+                                                                                [value]="data.room_no">
+                                                                                {{data.room_no}}-{{data.room_name}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="paddingInput" style="width: 25%;">
+                                                                        <mat-label> จำนวน </mat-label>
+                                                                        <input type="number"
+                                                                            formControlName="total_seats" type="number"
+                                                                            matInput />
+                                                                    </mat-form-field>
+                                                                    <button mat-icon-button color="accent"
+                                                                        (click)="delwrittenExamRoomsForm(schedules,writtenExamRoomsIndex)"
+                                                                        aria-label="Example icon button with a home icon">
+                                                                        <mat-icon> clear </mat-icon>
+                                                                    </button>
+                                                                </div>
+
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </mat-card-content>
+                                        </mat-card>
+                                        <!-- </mat-card-content> -->
+                                        <!-- </mat-card> -->
+                                        <br>
+                                    </ng-container>
+                                </ng-container>
+                            </mat-card-content>
+                        </mat-card>
+                        <br>
+                        <mat-card class="mat-elevation-z4">
+                            <mat-card-content>
+                                <div class="flex_row_between">
+                                    <mat-checkbox (change)="change_is_subject($event)" formControlName="is_subject">มีสอบ</mat-checkbox>
+
+                                    <button mat-icon-button color="accent" *ngIf="form.get('is_subject').value"
+                                        (click)="addprogramExamSubjectsForm()">
+                                        <mat-icon> <span class="material-icons" color="accent">
+                                                add
+                                            </span></mat-icon>
+                                    </button>
+                                </div>
+
+                                <ng-container formArrayName="programExamSubjects">
+                                    <ng-container
+                                        *ngFor="let programExamSubjects of form['controls']['programExamSubjects']['controls'];let programExamSubjectsIndex = index"
+                                        [formGroupName]="programExamSubjectsIndex">
+                                        <div class="flex_row">
+                                            <div style="width: 5%;">
+                                                {{programExamSubjectsIndex+1}}
+                                            </div>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 20%;">
+                                                <mat-label> วิชาสอบ </mat-label>
+                                                <mat-select formControlName="exam_subject_id">
+                                                    <mat-option
+                                                        [disabled]="data.exam_subject_id | doubleCheckItem : form.getRawValue().programExamSubjects : 'exam_subject_id'"
+                                                        *ngFor="let data of examSubjectsData"
+                                                        [value]="data.exam_subject_id">
+                                                        {{data.exam_subject_code}}-{{data.exam_subject_name_th}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="paddingInput"
+                                                style="width: 15%;">
+                                                <mat-label> วันที่สอบ </mat-label>
+                                                <!-- (dateChange)="dateChange(schedules,$event.value,'enrollment_start_date')"
+                                            (selectedValueChange)="dateChange(schedules,$event,'enrollment_start_date')" -->
+                                                <input matInput formControlName="exam_date" readonly matInput
+                                                    (click)="datepickerexam.open()" [matDatepicker]="datepickerexam" />
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerexam">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #datepickerexam></mat-datepicker>
+                                            </mat-form-field>
+                                            <div class="md-form md-outline paddingInput" style="width: 15%;">
+                                                <mat-form-field appearance="outline" class="paddingInput"
+                                                    style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาเริ่มต้น
+                                                    </mat-label>
+                                                    <input matInput formControlName="exam_start_time" type="time"
+                                                        id="default-picker" placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="md-form md-outline paddingInput" style="width: 15%;">
+                                                <mat-form-field appearance="outline" class="paddingInput"
+                                                    style="width: 100%;">
+                                                    <mat-label for="default-picker"> เวลาสิ้นสุด
+                                                    </mat-label>
+                                                    <input matInput formControlName="exam_end_time" type="time"
+                                                        id="default-picker" placeholder="Select time" />
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="md-form md-outline paddingInput" style="width: 15%;">
+                                                <mat-form-field appearance="outline"
+                                                class="paddingInput" style="width: 100%;">
+                                                <mat-label> คะแนนเต็ม </mat-label>
+                                                <input type="number"
+                                                    formControlName="full_score" type="number" matInput />
+                                            </mat-form-field>
+                                            </div>
+
+                                            <button mat-icon-button color="accent"
+                                                (click)="delprogramExamSubjectsForm(programExamSubjectsIndex)"
+                                                aria-label="Example icon button with a home icon">
+                                                <mat-icon> clear </mat-icon>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="เทมเพลตอีเมล">
+                    <mat-card class="mat-elevation-z4">
+                        <mat-card-content>
+
+                            <mat-card-title>เทมเพลตอีเมล</mat-card-title>
+
+
+
+                            <div class="flex_row">
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                                    <mat-label>สถานะ</mat-label>
+                                    <mat-select [(ngModel)]="applyAction.application_status_id"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let food of applicationStatusData"
+                                            [value]="food.application_status_id">
+                                            {{food.application_status_name_th}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="paddingInput" style="width: 20%;">
+                                    <mat-label>เทมเพลตอีเมล</mat-label>
+                                    <mat-select [(ngModel)]="applyAction.action_template_id"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let food of emailTemplateData"
+                                            [value]="food.email_template_id">
+                                            {{food.email_template_name_th}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-icon-button color="accent" (click)="addActionForm()">
+                                    <mat-icon> <span class="material-icons" color="accent">
+                                            add
+                                        </span></mat-icon>
+                                </button>
+                            </div>
+
+
+
+                            <br *ngIf="form['controls']['applyActions']['controls'].length != 0">
+
+                            <table class="mat-elevation-z2" style="width: 100%;"
+                                *ngIf="form['controls']['applyActions']['controls'].length != 0">
+                                <tr style="height: 56px;">
+                                    <th style="width: 20%;" class="th_head_befor">สถานะ</th>
+                                    <th style="width: 20%;" class="th_head">เทมเพลตอีเมล์</th>
+                                    <th style="width: 20%;text-align: left;" class="th_head_after"></th>
+                                </tr>
+                                <ng-container formArrayName="applyActions">
+                                    <ng-container
+                                        *ngFor="let applyActions of form['controls']['applyActions']['controls'];let applyActionsIndex = index"
+                                        [formGroupName]="applyActionsIndex">
+                                        <tr style="height: 48px;">
+                                            <td class="td_body_befor">
+                                                <!-- <mat-form-field appearance="outline" class="paddingInput"
+                                                    style="width: 70%;">
+                                                    <mat-label>สถานะ</mat-label>
+                                                    <mat-select formControlName="application_status_id">
+                                                        <mat-option *ngFor="let food of applicationStatusData"
+                                                            [value]="food.application_status_id">
+                                                            {{food.application_status_name_th}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field> -->
+                                                {{applyActions.value.application_status_id | getFormId :
+                                                applicationStatusData : 'application_status_id' :
+                                                'application_status_name_th' : ''}}
+                                            </td>
+                                            <td class="td_body">
+                                                <!-- <mat-form-field appearance="outline" class="paddingInput"
+                                                    style="width: 70%;">
+                                                    <mat-label>เทมเพลตอีเมล</mat-label>
+                                                    <mat-select formControlName="action_template_id">
+                                                        <mat-option *ngFor="let food of emailTemplateData"
+                                                            [value]="food.email_template_id">
+                                                            {{food.email_template_name_th}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field> -->
+                                                {{applyActions.value.action_template_id | getFormId : emailTemplateData
+                                                : 'email_template_id' : 'email_template_name_th' : ''}}
+                                            </td>
+                                            <td class="td_body_after">
+                                                <button mat-icon-button color="accent"
+                                                    (click)="delActionForm(applyActionsIndex)"
+                                                    aria-label="Example icon button with a home icon">
+                                                    <mat-icon> clear </mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </table>
+
+
+
+
+                            <!-- <table style="width:90%">
+                                        <tr>
+                                            <td class="td_body_befor" style="border-top: 1px solid rgba(0, 0, 0, 0.3);border-bottom: 1px solid rgba(0, 0, 0, 0.3);">
+                                                <mat-label>{{applyActionsIndex+1}}</mat-label>
+                                            </td>
+                                            <td class="td_body" style="border-top: 1px solid rgba(0, 0, 0, 0.3);border-bottom: 1px solid rgba(0, 0, 0, 0.3);">
+                                                <mat-form-field class="paddingInput" style="width: 70%;">
+                                                    <mat-label>สถานะ</mat-label>
+                                                    <mat-select formControlName="application_status_id" >
+                                                        <mat-option *ngFor="let food of applicationStatusData"
+                                                            [value]="food.application_status_id">
+                                                            {{food.application_status_name_th}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td class="td_body" style="border-top: 1px solid rgba(0, 0, 0, 0.3);border-bottom: 1px solid rgba(0, 0, 0, 0.3);">
+                                                <mat-form-field class="paddingInput" style="width: 70%;">
+                                                    <mat-label>เทมเพลตอีเมล์</mat-label>
+                                                    <mat-select formControlName="action_template_id">
+                                                        <mat-option *ngFor="let food of emailTemplateData"
+                                                            [value]="food.email_template_id">
+                                                            {{food.email_template_name_th}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </td>
+                                            <td class="td_body_after" style="border-top: 1px solid rgba(0, 0, 0, 0.3);border-bottom: 1px solid rgba(0, 0, 0, 0.3);">
+                                                <button mat-icon-button color="accent"
+                                                (click)="delActionForm(applyActionsIndex)"
+                                                aria-label="Example icon button with a home icon">
+                                                <mat-icon> clear </mat-icon>
+                                            </button>
+                                            </td>
+                                        </tr>
+                                    </table> -->
+                            <!-- <div class="flex_row">
+                                        <mat-label style="width: 3%;">{{applyActionsIndex+1}}</mat-label>
+                                        <mat-form-field class="paddingInput" style="width: 20%;">
+                                            <mat-label>สถานะ</mat-label>
+                                            <mat-select formControlName="application_status_id">
+                                                <mat-option *ngFor="let food of applicationStatusData"
+                                                    [value]="food.application_status_id">
+                                                    {{food.application_status_name_th}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="paddingInput" style="width: 20%;">
+                                            <mat-label>เทมเพลตอีเมล์</mat-label>
+                                            <mat-select formControlName="action_template_id">
+                                                <mat-option *ngFor="let food of emailTemplateData"
+                                                    [value]="food.email_template_id">
+                                                    {{food.email_template_name_th}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <button mat-icon-button color="accent"
+                                            (click)="delActionForm(applyActionsIndex)"
+                                            aria-label="Example icon button with a home icon">
+                                            <mat-icon> clear </mat-icon>
+                                        </button>
+                                    </div> -->
+
+                        </mat-card-content>
+                    </mat-card>
+                </mat-tab>
+
+                <mat-tab label="เอกสารที่ใช้ในการสมัคร">
+                    <mat-card class="mat-elevation-z4">
+                        <mat-card-content>
+                            <div class="flex_row_between">
+
+                                <mat-card-title>เอกสารที่ใช้ในการสมัคร</mat-card-title>
+
+
+                            </div>
+
+                            <br>
+                            <table class="mat-elevation-z2" style="width: 100%;">
+                                <tr style="height: 56px;">
+                                    <th style="width: 20%;" class="th_head_befor"></th>
+                                    <th style="width: 20%;text-align: left;" class="th_head_after">ชื่อเอกสาร</th>
+                                </tr>
+                                <tr style="height: 48px;" *ngFor="let data of documentData">
+                                    <td class="td_body_befor">
+                                        <mat-checkbox #doc
+                                            [checked]="data.isCheck | checkDocProgram : data : form.getRawValue()"
+                                            (change)="addDocument(doc.checked,data)"></mat-checkbox>
+                                    </td>
+                                    <td class="td_body_after">
+                                        {{data.document_type_name_th}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-tab>
+
+
+
+                <!-- หลักศุตร  -->
+
+
+                <mat-tab label="หลักสูตร">
+                    <mat-card style="border-radius:0px;box-shadow:none">
+                        <mat-card-content>
+                            <div class="flex_row">
+                                <div style="width: 70%;">
+
+                                    <mat-card-title>หลักสูตร</mat-card-title>
+
+                                </div>
+                                <div style="width: 30%;justify-content: flex-end;display: flex;">
+                                    <!-- <button style="width: 190px;" (click)="openPopUpEditCourse()" color="accent"
+                                        mat-raised-button>แก้ไขหลักสูตร</button> -->
+                                    <button mat-stroked-button style="width: 190px;" (click)="openPopUpEditCourse()"
+                                        color="accent">แก้ไขหลักสูตร</button>
+                                    &nbsp;&nbsp;
+                                    <!-- <button style="width: 190px;" (click)="openPopUpCourse()" color="accent"
+                                        mat-raised-button>เพิ่มหลักสูตร</button> -->
+                                    <button mat-stroked-button style="width: 190px;" (click)="openPopUpCourse()"
+                                        color="accent">เพิ่มหลักสูตร</button>
+                                    <!-- <button mat-icon-button color="accent" (click)="openPopUpCourse()">
+                                    <mat-icon> <span class="material-icons" color="accent">
+                                            add
+                                        </span></mat-icon>
+                                </button> -->
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                    <div class="flex_row_center" *ngIf="form['controls']['programCourses']['controls'].length == 0">
+                        <p style="font-size: 18px;">ไม่พบหลักสูตร</p>
+                    </div>
+                    <table class="mat-elevation-z2" style="width: 100%;"
+                        *ngIf="form['controls']['programCourses']['controls'].length != 0">
+                        <tr style="height: 56px;">
+                            <th style="width: 5%;" class="th_head_befor">
+                                <mat-checkbox formControlName="is_couse_check" #courseAll
+                                    (change)="addCourseAllSetting(courseAll.checked)"></mat-checkbox>
+                            </th>
+                            <th style="width: 30%;text-align: left;" class="th_head_after">ชื่อหลักสูตร</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">ตรวจสอบใบสมัคร</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">สอบข้อเขียน</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">สอบสัมภาษณ์</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">กำหนดให้คณะอนุมัติ</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">รอบการสมัคร</th>
+                            <th style="width: 10%;text-align: left;" class="th_head">เอกสาร</th>
+                            <th style="width: 10%;text-align: left;" class="th_head_after"></th>
+                            <!-- <th style="width: 10%;text-align: left;" class="th_head_after">ตรวจสอบใบสมัคร</th> -->
+                        </tr>
+                        <ng-container formArrayName="programCourses">
+                            <ng-container>
+                                <tr>
+                                    <td colspan="9" valign="top" style="padding: 0px;">
+                                        <div class="containBody">
+                                            <table class="mat-elevation-z2" style="width: 100%;">
+                                                <tr style="height: 48px;"
+                                                    *ngFor="let programCourse of form['controls']['programCourses']['controls'];let programCoursesIndex = index"
+                                                    [formGroupName]="programCoursesIndex">
+                                                    <td style="width: 5%;" class="td_body_befor">
+                                                        <mat-checkbox #course formControlName="is_flag"
+                                                            [checked]="programCourse.value.is_flag | checkedCourseAdd : programCourse.value : this.courseFunctionFormCheck"
+                                                            (change)="editCourse(course.checked,programCourse)">
+                                                        </mat-checkbox>
+                                                    </td>
+                                                    <td style="width: 30%;" class="td_body">
+                                                        {{programCourse.value.course_code | getFormId : courseData :
+                                                        'course_code' : 'major_code' :
+                                                        ''}}-{{programCourse.value.course_code | getFormId : courseData
+                                                        : 'course_code' : 'course_name_th' : ''}}
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.validate_flag">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.written_flag">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.interview_flag">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.practice_flag">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.courseSchedules.length != 0">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body">
+                                                        <span class="material-icons"
+                                                            *ngIf="programCourse.value.courseDocuments.length != 0">
+                                                            done
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 10%;" class="td_body_after">
+                                                        <button mat-icon-button color="accent"
+                                                            (click)="del_programCourses_Form(programCoursesIndex)"
+                                                            aria-label="Example icon button with a home icon">
+                                                            <mat-icon> clear </mat-icon>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </table>
+
+
+
+
+                </mat-tab>
+
+
+            </mat-tab-group>
+
+
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card style="box-shadow:none">
+        <mat-card-content>
+            <div class="flex_row_end">
+                <button style="width: 190px;" (click)="save()" [disabled]="form.invalid" color="accent"
+                    mat-raised-button>บันทึกโครงการ</button>&nbsp;&nbsp;
+                <button mat-raised-button style="width: 190px;" (click)="close()" mat-raised-button>ยกเลิก</button>
+                <!-- <button mat-raised-button style="width: 190px;" (click)="openPopUpWriting()" mat-raised-button>aaa</button> -->
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+<!-- <ng-progress [color]="'#ec407a'" #progressBar></ng-progress> -->
+<!-- <loading  *ngIf="loading"></loading> -->
+
+<!-- <mat-spinner></mat-spinner> -->
+
+<!-- <pre>{{form.getRawValue()|json}}</pre> -->

@@ -1,0 +1,17 @@
+.container {
+    flex: 1;
+    display: flex;   
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.container_footer {
+    display: flex;    
+    align-items: flex-end;
+}
+
+.container_router {
+    padding: 20px;
+    flex: 1;
+}

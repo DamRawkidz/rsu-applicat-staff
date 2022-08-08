@@ -1,0 +1,4 @@
+<button  #confirmBtn class="width_button"  mat-raised-button     
+    [color]="color" [disabled]="disabled" [ngStyle]="{'cursor': disabled ? 'not-allowed' : '' }">
+        <span [ngStyle]="{'cursor': disabled ? 'not-allowed' : '', 'pointer-events': disabled ? 'none':'' }"> {{ name }}</span> 
+</button>

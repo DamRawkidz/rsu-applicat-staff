@@ -1,0 +1,70 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content >
+        <div class="flex_row_between">
+            <mat-form-field  style="width: 100%;" appearance="outline">
+                <mat-label> หมายเลขผู้สมัคร </mat-label>
+                <input matInput [disabled]="true" [value]="informationData?.application_id"/>
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> ชื่อ </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.first_name_th"/>
+            </mat-form-field>
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> นามสกุล </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.last_name_th"/>
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> อีเมล </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.email"/>
+            </mat-form-field>
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> เบอร์โทรศัพ </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.mobile"/>
+            </mat-form-field>
+        </div>
+        <div class="flex_row_between">
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> สาขาคณะ </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.faculty_name_th"/>
+            </mat-form-field>
+            <mat-form-field style="width: 45%;" appearance="outline">
+                <mat-label> โปรแกรม </mat-label>
+                <input matInput [disabled]="true" [value]="ApplicantData?.program_name_th"/>
+            </mat-form-field>
+        </div>
+    </mat-card-content>
+            <!-- <div class="flex_row_center">
+                <button mat-raised-button (click)="onBack()"> ย้อนกลับ </button>&nbsp;&nbsp;
+                <button mat-raised-button color="accent" (click)="paymentPopup()"> Payment </button>
+            </div> -->
+</mat-card>
+<br>
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <div class="flex_row">
+            <mat-radio-group [(ngModel)]="payment" aria-label="Select an option" style="width: 50%;">
+                <mat-label style="padding-right: 40px;">ชำระเงิน&nbsp;&nbsp;&nbsp;&nbsp;</mat-label>
+                <mat-radio-button [value]="1">ชำระเงินค่าสมัครแล้ว</mat-radio-button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-radio-button [value]="2">ชำระเงินสด</mat-radio-button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-radio-button [value]="3">ชำระเงินผ่าน QR Code</mat-radio-button>
+            </mat-radio-group>
+            <div style="width: 45%;">
+            <button *ngIf="payment == 3" style="width: 190px;" color="accent" (click)="paymentPopup()" mat-raised-button>แสดง QR Code</button>&nbsp;&nbsp;
+        </div>
+        </div>
+        <div class="flex_row_end">
+            <button style="width: 190px;" mat-raised-button (click)="onBack()"> ย้อนกลับ </button>&nbsp;&nbsp;
+            <button style="width: 190px;" color="accent" (click)="onBack()" mat-raised-button>บันทึก</button>&nbsp;&nbsp;
+            <!-- <button style="width: 190px;" color="accent" (click)="onBack()" mat-raised-button>ชำระเงินสด</button>&nbsp;&nbsp;
+            <button style="width: 190px;" color="accent" (click)="paymentPopup()" mat-raised-button>ชำระเงินผ่าน QR Code</button>&nbsp;&nbsp; -->
+            
+    
+        </div>
+    </mat-card-content>
+</mat-card>

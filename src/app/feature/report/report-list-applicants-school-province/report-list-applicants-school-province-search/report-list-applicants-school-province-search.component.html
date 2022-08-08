@@ -1,0 +1,77 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-content>
+        <mat-card-header>
+            <mat-card-title>รายงานรายชื่อผู้สมัครแยกตามโรงเรียน/จังหวัด</mat-card-title>
+        </mat-card-header>
+        <div class="flex_row">
+            <mat-form-field style="width: 45%;" appearance="outline" class="paddingInput">
+                <input matInput #programInput onfocus="select()" [(ngModel)]="searchInput.programs"
+                    placeholder="ค้นหาโครงการ" aria-label="ค้นหาโครงการต้องการศึกษา" [matAutocomplete]="programs" />
+                <mat-label>ค้นหาโครงการ</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <mat-autocomplete #programs="matAutocomplete">
+                    <mat-option (click)="changeProgram(ad)"
+                        *ngFor="let ad of programsData | searchInputAuto : searchInput.programs : 'display'"
+                        [value]="ad.display">
+                        {{ad.display}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="flex_row">
+            <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                <mat-label>ปีการศึกษา</mat-label>
+                <mat-select (valueChange)="changeYear($event)" [(ngModel)]="searchInput.year">
+                    <mat-option *ngFor="let year of academicYearData" [value]="year.academic_year_id">
+                        {{year.academic_year_name_th}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="paddingInput" style="width: 30%;">
+                <mat-label>ภาคเรียน</mat-label>
+                <mat-select [(ngModel)]="searchInput.sector">
+                    <mat-option *ngFor="let data of academicSemesterData" [value]="data.academic_semester_id">
+                        {{data.semester_name_th}}
+                    </mat-option>
+                    <mat-option *ngIf="academicSemesterData.length == 0">
+                        ไม่มีภาคเรียนของปีการศึกษานี้
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- <div class="flex_row">
+            <mat-form-field  style="width: 45%;" appearance="outline"
+                class="paddingInput">
+                <input matInput #ppp placeholder="จังหวัดเริ่มต้น" [(ngModel)]="searchInput.province_name_start" (input)="inputprovinceStart(ppp.value)" aria-label="State"
+                    [matAutocomplete]="co" />
+                <mat-icon matSuffix style="cursor: pointer;" >search</mat-icon>
+                <mat-autocomplete #co="matAutocomplete">
+                    <mat-option style="font-size: 10px;" *ngFor="let c of provinces"
+                         [value]="c.province_name_th">
+                        {{c.province_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field  style="width: 45%;" appearance="outline"
+                class="paddingInput">
+                <input matInput  placeholder="จังหวัดสิ้นสุด" [(ngModel)]="searchInput.province_name_end"  aria-label="State"
+                    [matAutocomplete]="end" />
+                <mat-icon matSuffix style="cursor: pointer;" >search</mat-icon>
+                <mat-autocomplete #end="matAutocomplete">
+                    <mat-option style="font-size: 10px;" *ngFor="let c of provinces"
+                         [value]="c.province_name_th">
+                        {{c.province_name_th}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div> -->
+        <div class="flex_row" style="width: 50%;">
+            <div class="paddingInput">
+                <button style="width: 190px;" (click)="search()" color="accent" mat-raised-button>ค้นหา</button>
+            </div>
+            <div class="paddingInput">
+                <button style="width: 190px;" (click)="reSet()" mat-stroked-button color="accent">ยกเลิก</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-content>
+        <ng-content select="[content]"></ng-content>        
+    </mat-card-content>
+    <mat-card-actions [align]="alignLayoutButton">
+        <app-confirm-button 
+            [name]="confirmNameButton" 
+            (click)="onClickConfirmButton.emit()">
+        </app-confirm-button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <app-cancel-button 
+            [name]="cancleNameButton" 
+            (click)="onClickCancleButton.emit()">
+        </app-cancel-button>
+    </mat-card-actions>
+</mat-card>

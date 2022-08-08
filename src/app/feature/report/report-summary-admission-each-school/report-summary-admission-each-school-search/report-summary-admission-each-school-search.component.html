@@ -1,0 +1,22 @@
+<div class="flex_row_between" style="width: 100%;align-items: end;">
+    <div >
+        <button style="width: 190px;" (click)="back()" mat-stroked-button color="accent">ย้อนกลับ</button>
+    </div>
+    <div class="flex_row_end" style="width: 50%;">
+        <mat-form-field appearance="outline" class="paddingInput" style="width: 50%;font-size: 12px;">
+            <mat-label>ประเภทไฟล์ที่ต้องการ</mat-label>
+            <mat-select [(ngModel)]="fileDownload">
+                <mat-option *ngFor="let data of fileData" [value]="data.id">
+                    {{data.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="paddingInput">
+            <button style="width: 190px;" (click)="search()" mat-stroked-button color="accent">ดาวน์โหลด</button>
+        </div>
+    </div>
+</div>
+<br>
+<div  style="height:800px">
+<iframe width="100%" style="height: -webkit-outline-available;" [src]="url"></iframe>
+</div>

@@ -1,0 +1,9 @@
+button:disabled > * {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+:host ::ng-deep button * { 
+    pointer-events: none; 
+  }
